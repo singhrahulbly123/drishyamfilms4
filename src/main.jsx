@@ -72,7 +72,6 @@ function App() {
     [active, setActive] = useState(0),
     [modal, setModal] = useState(null),
     [menu, setMenu] = useState(false),
-    [heroHovered, setHeroHovered] = useState(false),
     [logoHovered, setLogoHovered] = useState(false),
     [isAboutPage, setIsAboutPage] = useState(() => window.location.pathname === '/film-details'),
     [premiereOpen, setPremiereOpen] = useState(false),
@@ -85,27 +84,47 @@ function App() {
   }, [dark]);
   useEffect(() => {
     let audioContext;
-    let unlocked = false;
     const unlockAudio = () => {
-      if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
-      audioContext.resume?.();
-      unlocked = true;
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContext) return;
+      if (!audioContext) audioContext = new AudioContext();
+      if (audioContext.state === 'suspended') audioContext.resume().catch(() => {});
     };
+    let tearing;
     const playTicketHover = (event) => {
       const ticket = event.target.closest?.('.ticket-button');
-      if (!ticket || ticket.contains(event.relatedTarget) || !unlocked || !audioContext) return;
+      if (!ticket || ticket.disabled || ticket.contains(event.relatedTarget)) return;
+      unlockAudio();
+      if (audioContext?.state !== 'running') return;
+      tearing?.stop();
       const now = audioContext.currentTime;
-      const oscillator = audioContext.createOscillator();
+      const duration = 0.24;
+      const buffer = audioContext.createBuffer(1, Math.ceil(audioContext.sampleRate * duration), audioContext.sampleRate);
+      const samples = buffer.getChannelData(0);
+      for (let i = 0; i < samples.length; i++) {
+        const t = i / audioContext.sampleRate;
+        // Uneven noise bursts imitate paper fibres tearing along perforations.
+        const fibres = Math.pow(Math.max(0, Math.sin(t * 430) * Math.sin(t * 173)), 2);
+        samples[i] = (Math.random() * 2 - 1) * (0.15 + fibres * 0.85);
+      }
+      const source = audioContext.createBufferSource();
+      source.buffer = buffer;
+      const filter = audioContext.createBiquadFilter();
+      filter.type = 'highpass';
+      filter.frequency.value = 1100;
       const gain = audioContext.createGain();
-      oscillator.type = 'sine';
-      oscillator.frequency.setValueAtTime(370, now);
-      oscillator.frequency.exponentialRampToValueAtTime(610, now + 0.055);
-      gain.gain.setValueAtTime(0.0001, now);
-      gain.gain.exponentialRampToValueAtTime(0.028, now + 0.012);
-      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.075);
-      oscillator.connect(gain).connect(audioContext.destination);
-      oscillator.start(now);
-      oscillator.stop(now + 0.08);
+      gain.gain.setValueAtTime(0, now);
+      gain.gain.linearRampToValueAtTime(0.18, now + 0.015);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+      source.connect(filter).connect(gain).connect(audioContext.destination);
+      tearing = source;
+      source.onended = () => {
+        source.disconnect();
+        filter.disconnect();
+        gain.disconnect();
+        if (tearing === source) tearing = null;
+      };
+      source.start(now);
     };
     window.addEventListener('pointerdown', unlockAudio, { once: true });
     window.addEventListener('keydown', unlockAudio, { once: true });
@@ -114,7 +133,8 @@ function App() {
       window.removeEventListener('pointerdown', unlockAudio);
       window.removeEventListener('keydown', unlockAudio);
       document.removeEventListener('pointerover', playTicketHover);
-      audioContext?.close();
+      tearing?.stop();
+      audioContext?.close().catch(() => {});
     };
   }, []);
   useEffect(() => {
@@ -122,7 +142,7 @@ function App() {
     const addTicketHoverSvg = (button) => {
       if (button.matches('.brand, .menu-button, .side-top > button, .side-links button, .modal-close, .video-modal-close, .slide-tabs button')) return;
       button.classList.add('ticket-button');
-      if (button.querySelector(':scope > .ticket-hover-svg')) return;
+      if (button.querySelector(':scope > .ticket-default-svg')) return;
       const createTicketSvg = (className, outlineStroke, dividerStroke, outlineData, dividerData) => {
         const svg = document.createElementNS(svgNamespace, 'svg');
         svg.classList.add(className);
@@ -143,8 +163,7 @@ function App() {
         return svg;
       };
       const defaultSvg = createTicketSvg('ticket-default-svg', 'white', 'currentColor', 'data-explore', 'data-explore-line');
-      const hoverSvg = createTicketSvg('ticket-hover-svg', 'currentColor', 'black', 'data-animatedash', 'data-verticaldash');
-      button.append(defaultSvg, hoverSvg);
+      button.append(defaultSvg);
     };
     const attachTicketSvgs = (root = document) => {
       if (root instanceof HTMLButtonElement) addTicketHoverSvg(root);
@@ -162,14 +181,6 @@ function App() {
     window.addEventListener('popstate', syncPage);
     return () => window.removeEventListener('popstate', syncPage);
   }, []);
-  useEffect(() => {
-    if (heroHovered) return;
-    const t = setInterval(
-      () => setActive((v) => (v + 1) % slides.length),
-      6500,
-    );
-    return () => clearInterval(t);
-  }, [heroHovered]);
   useEffect(() => {
     let frame;
     const updateCatalog = () => {
@@ -407,12 +418,10 @@ function App() {
           src={sliderVideos[active]}
           autoPlay
           muted
-          loop
           playsInline
           preload={'metadata'}
           aria-hidden={'true'}
-          onMouseEnter={() => setHeroHovered(true)}
-          onMouseLeave={() => setHeroHovered(false)}
+          onEnded={() => setActive((value) => (value + 1) % slides.length)}
         />
         <div className="hero-wash" />
         <div className="hero-content">

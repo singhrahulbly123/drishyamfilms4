@@ -138,12 +138,12 @@ button {
     inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     animation: fadeIn 0.7s ease;
-    filter: saturate(0.8);
 }
 
 .hero-wash {
+    display: none;
     position: absolute;
     inset: 0;
     background: linear-gradient(90deg, rgba(9, 8, 11, 0.81), rgba(9, 8, 11, 0.16) 63%), linear-gradient(0deg, rgba(9, 8, 11, 0.55), transparent 45%);
@@ -3946,7 +3946,37 @@ button.ticket-button:hover>.ticket-hover-svg {
 }
 
 
-/* Hover's second SVG uses current-color outline with the black dashed divider. */
+/* One transparent ticket frame in both states; only the SVG turns white. */
+button.ticket-button:hover {
+    --ticket-ink: #f8f3ef;
+    --ticket-line: #f8f3ef;
+    color: #f8f3ef !important;
+    background: transparent !important;
+    clip-path: none;
+    transform: none;
+    box-shadow: none;
+}
+
+button.ticket-button:hover > .ticket-default-svg {
+    display: block;
+}
+
+button.ticket-button:hover > .ticket-default-svg path {
+    stroke: #fff;
+}
+
+button.ticket-button:hover .arrow svg {
+    color: #fff;
+}
+
+button.ticket-button::before,
+button.ticket-button::after,
+button.ticket-button:hover::before,
+button.ticket-button:hover::after {
+    display: none !important;
+}
+
+/* Legacy second frames are no longer inserted into buttons. */
 
 button.ticket-button:hover .ticket-hover-svg [data-animatedash],
 button.ticket-button:hover .ticket-hover-svg [data-verticaldash] {
