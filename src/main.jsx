@@ -257,7 +257,9 @@ function App() {
     explore.type = 'button';
     explore.className = 'ticket-button';
     explore.textContent = 'EXPLORE  →';
-    explore.onclick = () => setModal({ ...film, video: catalogVideos[catalogFilm] });
+    explore.onclick = () => film.title === 'Siya'
+      ? scroll('#film-details')
+      : setModal({ ...film, video: catalogVideos[catalogFilm] });
     explore.textContent = 'EXPLORE';
     const exploreArrow = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     exploreArrow.classList.add('arrow');
@@ -507,7 +509,7 @@ Expanding seamlessly across theatrical and streaming spaces, recent titles like 
           {films.map((film, index) => <video key={film.title} className={`catalog-media ${index === catalogFilm ? "is-active" : ""}`} src={catalogVideos[index]} autoPlay muted loop playsInline preload="metadata" aria-hidden="true" />)}
           <div className="catalog-vignette" /><div className="catalog-grain" aria-hidden="true" />
           <div className="catalog-topline"><p>OUR FILMS</p><span>{String(catalogFilm + 1).padStart(2, "0")} / {String(films.length).padStart(2, "0")}</span></div>
-          <div className="catalog-copy"><p className="catalog-genre">{films[catalogFilm].genre}</p><h2 key={films[catalogFilm].title}>{films[catalogFilm].title}</h2><p className="catalog-description">A Drishyam Films story, made to stay with you long after the screen fades to black.</p><button className="ticket-button" onClick={() => setModal({ ...films[catalogFilm], video: catalogVideos[catalogFilm] })}>EXPLORE FILM <Arrow /></button></div>
+          <div className="catalog-copy"><p className="catalog-genre">{films[catalogFilm].genre}</p><h2 key={films[catalogFilm].title}>{films[catalogFilm].title}</h2><p className="catalog-description">A Drishyam Films story, made to stay with you long after the screen fades to black.</p><button className="ticket-button" onClick={() => films[catalogFilm].title === 'Siya' ? scroll('#film-details') : setModal({ ...films[catalogFilm], video: catalogVideos[catalogFilm] })}>EXPLORE FILM <Arrow /></button></div>
           <div className="catalog-side-note">SCROLL TO DISCOVER</div>
           {/* <div className="catalog-progress" aria-hidden="true"><i style={{ transform: `scaleX(${Math.max(.06, catalogProgress)})` }} /></div> */}
           {/* <div className="catalog-dots">{films.map((film, index) => <button key={film.title} className={index === catalogFilm ? "is-active" : ""} aria-label={`View ${film.title}`} onClick={() => { const target = catalogRef.current; if (target) window.scrollTo({ top: target.offsetTop + (target.offsetHeight - window.innerHeight) * (index / films.length), behavior: "smooth" }); }}><span>0{index + 1}</span></button>)}</div> */}
