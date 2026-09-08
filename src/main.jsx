@@ -10,12 +10,12 @@ import newtonCatalogVideo from './asstes/videos/Newton_4.mp4';
 import siyaCatalogVideo from './asstes/videos/Siya_1.mp4';
 import masaanStoriesImage from './asstes/images/masaan-our-stories.jpg';
 
-const sliderVideos = [newtonCatalogVideo, siyaCatalogVideo];
+const sliderVideos = [masaanCatalogVideo, siyaCatalogVideo, newtonCatalogVideo];
 const catalogVideos = [masaanCatalogVideo, dhanakCatalogVideo, newtonCatalogVideo, siyaCatalogVideo];
 
 const slides = [
   {
-    title: "NEWTON",
+    title: "MASAAN",
     kicker: "A STORY OF CONSCIENCE",
     date: "AWARD-WINNING CINEMA",
     image:
@@ -27,6 +27,13 @@ const slides = [
     date: "NOW STREAMING",
     image:
       "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=2200&q=90",
+  },
+   {
+    title: "NEWTON",
+    kicker: "A STORY OF CONSCIENCE",
+    date: "AWARD-WINNING CINEMA",
+    image:
+      "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=2200&q=90",
   },
 ];
 const films = [
@@ -140,7 +147,7 @@ function App() {
   useEffect(() => {
     const svgNamespace = 'http://www.w3.org/2000/svg';
     const addTicketHoverSvg = (button) => {
-      if (button.matches('.brand, .menu-button, .side-top > button, .side-links button, .modal-close, .video-modal-close, .slide-tabs button')) return;
+      if (button.matches('.brand, .menu-button, .side-top > button, .side-links button, .modal-close, .video-modal-close, .premiere-play, .slide-tabs button')) return;
       button.classList.add('ticket-button');
       if (button.querySelector(':scope > .ticket-default-svg')) return;
       const createTicketSvg = (className, outlineStroke, dividerStroke, outlineData, dividerData) => {
@@ -461,12 +468,11 @@ function App() {
             <em>the curious.</em>
           </h2>
           <p>
-            Stories from India that meet the world with heart, craft and a
-            singular point of view. Stories from India that meet the world with heart, craft and a
-            singular point of view. Stories from India that meet the world with heart, craft and a
-            singular point of view. Stories from India that meet the world with heart, craft and a
-            singular point of view. Stories from India that meet the world with heart, craft and a
-            singular point of view.
+            Founded in 2014 by Manish Mundra, Drishyam Films operates on a distinct promise: cinema with a soul. The studio champions independent Indian cinema, giving a global platform to fearless storytellers who capture honest, deeply human truths without compromise.
+          </p>
+          <p>
+           The studio has built an international presence through landmark releases including Ankhon Dekhi, Masaan, Dhanak, Waiting, and Newton—which won two National Film Awards and represented India at the 90th Academy Awards.
+Expanding seamlessly across theatrical and streaming spaces, recent titles like Love Hostel and Siya continue this legacy. Looking forward, Drishyam remains dedicated to discovering bold directorial voices, expanding into international co-productions, and shaping cinema that endures.
           </p>
           <button onClick={() => scroll("#films")} className="discover ticket-button">
             EXPLORE <Arrow />
@@ -478,6 +484,15 @@ function App() {
             alt="Film projection"
           />
           <img className={'premiere-film-cover'} src={masaanStoriesImage} alt={'Masaan film still'} />
+          <button
+            type='button'
+            className='premiere-play'
+            onClick={() => setPremiereOpen(true)}
+            aria-label='Play Our Stories video'
+          >
+            <span aria-hidden='true'>&#9654;</span>
+            <small>PLAY FILM</small>
+          </button>
           <div className="art-label">
             EST.
             <br />
@@ -499,15 +514,27 @@ function App() {
         </div></div>
       </section>
 
-      <FilmDetailsPage onPlay={() => setPremiereOpen(true)} onExplore={() => scroll('#films')} />
+      <FilmDetailsPage onPlay={() => setModal({ title: 'Siya', video: siyaCatalogVideo })} onExplore={() => scroll('#films')} />
 
-      <section id='contact' className='bg-[#151114] px-5 py-20 text-[#f8f5ef] sm:px-8 lg:px-14 lg:py-28'>
-        <div className='mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.9fr_1.1fr] lg:gap-20'>
+      <section
+        id='contact'
+        className='contact-section px-5 py-20 text-[#f8f5ef] sm:px-8 lg:px-14 lg:py-28'
+        style={{ '--contact-bg': `url(${masaanStoriesImage})` }}
+      >
+        <div className='contact-content mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.9fr_1.1fr] lg:gap-20'>
           <div className='flex flex-col justify-between border-t border-white/25 pt-6'>
             <div>
               <p className='font-mono text-[10px] font-bold tracking-[.18em] text-[#e97f6f]'>CONTACT US</p>
-              <h2 className='mt-5 max-w-md text-5xl font-extrabold leading-[.9] tracking-[-.07em] sm:text-6xl'>Start a conversation.</h2>
-              <p className='mt-7 max-w-md text-sm leading-7 text-white/65 sm:text-base'>Have a story, partnership, or project to share? Send us the essentials and the Drishyam Films team will review your enquiry.</p>
+              <h2 className='mt-5 max-w-md text-5xl font-extrabold leading-[.9] tracking-[-.07em] sm:text-6xl'>Start a <em>conversation.</em></h2>
+              <p className='mt-7 max-w-md text-sm leading-7 text-white/65 sm:text-base'>
+
+              Have a story, partnership, collaboration, or project you'd like to share? We'd love to hear from you.
+</p>
+              <p className='mt-7 max-w-md text-sm leading-7 text-white/65 sm:text-base'>
+Send us the essential details about your idea, proposal, or project, and the Drishyam Films team will carefully review your enquiry. If your vision aligns with our creative interests and upcoming opportunities, our team will get in touch with you.</p>
+              <b className='mt-7 max-w-md text-sm leading-7 text-white/65 sm:text-base'>
+Let's explore the possibility of creating something meaningful together.
+              </b>
             </div>
             <p className='mt-12 font-mono text-[10px] tracking-[.14em] text-white/45'>ALL FIELDS ARE REQUIRED</p>
           </div>
@@ -548,9 +575,9 @@ function App() {
           <h2>
             The people
             <br />
-            behind the picture.
+           <em> behind the picture.</em>
           </h2>
-          <button className="ticket-button">
+          <button type="button" className="contact-submit">
             ALL STORIES <Arrow />
           </button>
         </div>
@@ -615,7 +642,7 @@ function App() {
             <label htmlFor="email">EMAIL ADDRESS</label>
             <div>
               <input id="email" type="email" placeholder="you@example.com" />
-              <button aria-label="Subscribe">&#8594;</button>
+              <button type="submit" className="ticket-button ticket-button--solid signup-submit" aria-label="Subscribe">SUBSCRIBE <Arrow /></button>
             </div>
           </form>
           <small>
