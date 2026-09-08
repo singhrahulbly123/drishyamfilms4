@@ -138,8 +138,16 @@ button {
     inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: contain;
-    animation: fadeIn 0.7s ease;
+    object-fit: cover;
+    object-position: center;
+    /* The hero clips have an 800px picture inside a 1080px letterboxed frame. */
+    transform: scale(1.35);
+    animation: heroVideoFade 0.7s ease;
+}
+
+@keyframes heroVideoFade {
+    from { opacity: 0.5; }
+    to { opacity: 1; }
 }
 
 .hero-wash {
