@@ -1,85 +1,167 @@
 import React, { useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
+import FilmDetailsPage from './pages/film-details/film-details';
 import "./styles.css";
 import whiteLogo from './asstes/logo/white-logo.svg';
-import siyaVideo from './asstes/slider/siya.mp4';
-import newtonVideo from './asstes/slider/newton.mp4';
-import kaamyaabVideo from './asstes/slider/kaamyaab.mp4';
-import umrikaVideo from './asstes/slider/umrika.mp4';
+import pinkLogo from './asstes/logo/pink.png';
+import masaanCatalogVideo from './asstes/videos/Masaan_1.mov';
+import dhanakCatalogVideo from './asstes/videos/Dhanak_1.mov';
+import newtonCatalogVideo from './asstes/videos/Newton_4.mov';
+import siyaCatalogVideo from './asstes/videos/Siya_1.mov';
+import masaanStoriesImage from './asstes/images/masaan-our-stories.jpg';
 
-const sliderVideos = [siyaVideo, newtonVideo, kaamyaabVideo, umrikaVideo];
+const sliderVideos = [newtonCatalogVideo, siyaCatalogVideo];
+const catalogVideos = [masaanCatalogVideo, dhanakCatalogVideo, newtonCatalogVideo, siyaCatalogVideo];
 
 const slides = [
-  {
-    title: "SIYA",
-    kicker: "A DRISHYAM FILMS RELEASE",
-    date: "NOW STREAMING",
-    image:
-      "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=2200&q=90",
-  },
   {
     title: "NEWTON",
     kicker: "A STORY OF CONSCIENCE",
     date: "AWARD-WINNING CINEMA",
     image:
-      "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=2200&q=90",
+      "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=2200&q=90",
   },
   {
-    title: "KAAMYAAB",
-    kicker: "THE EXTRAORDINARY ORDINARY",
-    date: "WATCH NOW",
-    image:
-      "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=2200&q=90",
-  },
-  {
-    title: "UMRIKA",
-    kicker: "A STORY OF RESILIENCE",
+    title: "SIYA",
+    kicker: "A DRISHYAM FILMS RELEASE",
     date: "NOW STREAMING",
     image:
-      "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=2200&q=90",
-  }
+      "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=2200&q=90",
+  },
 ];
 const films = [
   {
-    title: "Siya",
-    genre: "Drama",
+    year: '2022',
+    director: 'Manish Mundra',
+    award: 'OFFICIAL SELECTION',
+    title: "Masaan",
+    genre: "Romance / Drama",
     image:
       "https://images.unsplash.com/photo-1594909122845-11baa439b7bf?auto=format&fit=crop&w=1000&q=88",
   },
   {
-    title: "Newton",
-    genre: "Drama / Satire",
+    title: "Dhanak",
+    genre: "Drama",
     image:
       "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1000&q=88",
   },
   {
-    title: "Kaamyaab",
-    genre: "Drama",
+    title: "Newton",
+    genre: "Black Comedy / Political Satire",
     image:
       "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1000&q=88",
   },
   {
-    title: "Umrika",
-    genre: "Drama / Comedy",
+    title: "Siya",
+    genre: "Realist Crime Drama",
     image:
       "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1000&q=88",
   },
 ];
-const Arrow = () => <span className="arrow">&#8594;</span>;
+const Arrow = () => <span className={'arrow'} aria-hidden={true}><svg xmlns={'http://www.w3.org/2000/svg'} fill={'none'} viewBox={'0 0 11 10'}><path fill={'currentColor'} d={'M4.481.005a6.65 6.65 0 0 1 6.46 4.659c.078.229.08.479-.003.706C10.302 7.105 8.318 10 4.48 10V8.39c.941.127 2.922-.257 4.442-2.603H0V4.208h8.938c-.756-1.229-2.216-2.78-4.457-2.78V.006Z'} /></svg></span>;
 const Play = () => <span className="play">&#9654;</span>;
+const filmDetails = [
+  { year: '2015', director: 'Neeraj Ghaywan', award: 'FIPRESCI PRIZE\nCANNES 2015', acclaim: ['Cannes 2015', 'FIPRESCI Prize', 'Prix de l Avenir'] },
+  { year: '2016', director: 'Nagesh Kukunoor', award: 'NATIONAL FILM AWARD\nBEST CHILDRENS FILM', acclaim: ['Crystal Bear', 'Grand Prix', 'Berlinale 2015'] },
+  { year: '2017', director: 'Amit V. Masurkar', award: 'NATIONAL FILM AWARD\nBEST HINDI FILM', acclaim: ['India Official Entry', 'CICAE Art Cinema Award', 'Berlinale 2017'] },
+  { year: '2022', director: 'Manish Mundra', award: 'ZEE5\nDIGITAL PREMIERE', acclaim: ['IFFI Selection', 'New York Indian Film Festival', 'UK Asian Film Festival'] },
+];
+
 function App() {
   const [dark, setDark] = useState(true),
     [active, setActive] = useState(0),
     [modal, setModal] = useState(null),
     [menu, setMenu] = useState(false),
     [heroHovered, setHeroHovered] = useState(false),
+    [logoHovered, setLogoHovered] = useState(false),
+    [isAboutPage, setIsAboutPage] = useState(() => window.location.pathname === '/film-details'),
     [premiereOpen, setPremiereOpen] = useState(false),
     [catalogFilm, setCatalogFilm] = useState(0),
     [catalogProgress, setCatalogProgress] = useState(0);
   const catalogRef = useRef(null);
+  const [contactStatus, setContactStatus] = useState('');
   useEffect(() => {
     document.documentElement.dataset.theme = dark ? "dark" : "light";
   }, [dark]);
+  useEffect(() => {
+    let audioContext;
+    let unlocked = false;
+    const unlockAudio = () => {
+      if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      audioContext.resume?.();
+      unlocked = true;
+    };
+    const playTicketHover = (event) => {
+      const ticket = event.target.closest?.('.ticket-button');
+      if (!ticket || ticket.contains(event.relatedTarget) || !unlocked || !audioContext) return;
+      const now = audioContext.currentTime;
+      const oscillator = audioContext.createOscillator();
+      const gain = audioContext.createGain();
+      oscillator.type = 'sine';
+      oscillator.frequency.setValueAtTime(370, now);
+      oscillator.frequency.exponentialRampToValueAtTime(610, now + 0.055);
+      gain.gain.setValueAtTime(0.0001, now);
+      gain.gain.exponentialRampToValueAtTime(0.028, now + 0.012);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.075);
+      oscillator.connect(gain).connect(audioContext.destination);
+      oscillator.start(now);
+      oscillator.stop(now + 0.08);
+    };
+    window.addEventListener('pointerdown', unlockAudio, { once: true });
+    window.addEventListener('keydown', unlockAudio, { once: true });
+    document.addEventListener('pointerover', playTicketHover);
+    return () => {
+      window.removeEventListener('pointerdown', unlockAudio);
+      window.removeEventListener('keydown', unlockAudio);
+      document.removeEventListener('pointerover', playTicketHover);
+      audioContext?.close();
+    };
+  }, []);
+  useEffect(() => {
+    const svgNamespace = 'http://www.w3.org/2000/svg';
+    const addTicketHoverSvg = (button) => {
+      if (button.matches('.brand, .menu-button, .side-top > button, .side-links button, .modal-close, .video-modal-close, .slide-tabs button')) return;
+      button.classList.add('ticket-button');
+      if (button.querySelector(':scope > .ticket-hover-svg')) return;
+      const createTicketSvg = (className, outlineStroke, dividerStroke, outlineData, dividerData) => {
+        const svg = document.createElementNS(svgNamespace, 'svg');
+        svg.classList.add(className);
+        svg.setAttribute('fill', 'none');
+        svg.setAttribute('viewBox', '0 0 142 44');
+        svg.setAttribute('width', '100%');
+        svg.setAttribute('aria-hidden', 'true');
+        const outline = document.createElementNS(svgNamespace, 'path');
+        outline.setAttribute('stroke', outlineStroke);
+        outline.setAttribute('d', 'M5 1h90c0 1 .6 3 3 3s3-2 3-3h36c0 3.2 2.667 4.144 4 4.216V39c-3.2 0-4 2.667-4 4h-35c0-1.333-.8-4-4-4s-4 2.667-4 4H5c0-3.6-2.667-4.167-4-4V5c3.2 0 4-2.667 4-4Z');
+        outline.setAttribute(outlineData, '');
+        const divider = document.createElementNS(svgNamespace, 'path');
+        divider.setAttribute('stroke', dividerStroke);
+        divider.setAttribute('d', 'M98 4.5v34');
+        divider.setAttribute('stroke-dasharray', '4');
+        divider.setAttribute(dividerData, '');
+        svg.append(outline, divider);
+        return svg;
+      };
+      const defaultSvg = createTicketSvg('ticket-default-svg', 'white', 'currentColor', 'data-explore', 'data-explore-line');
+      const hoverSvg = createTicketSvg('ticket-hover-svg', 'currentColor', 'black', 'data-animatedash', 'data-verticaldash');
+      button.append(defaultSvg, hoverSvg);
+    };
+    const attachTicketSvgs = (root = document) => {
+      if (root instanceof HTMLButtonElement) addTicketHoverSvg(root);
+      root.querySelectorAll?.('button').forEach(addTicketHoverSvg);
+    };
+    attachTicketSvgs();
+    const observer = new MutationObserver((records) => records.forEach((record) => record.addedNodes.forEach((node) => {
+      if (node.nodeType === Node.ELEMENT_NODE) attachTicketSvgs(node);
+    })));
+    observer.observe(document.body, { childList: true, subtree: true });
+    return () => observer.disconnect();
+  }, []);
+  useEffect(() => {
+    const syncPage = () => setIsAboutPage(window.location.pathname === '/film-details');
+    window.addEventListener('popstate', syncPage);
+    return () => window.removeEventListener('popstate', syncPage);
+  }, []);
   useEffect(() => {
     if (heroHovered) return;
     const t = setInterval(
@@ -103,15 +185,133 @@ function App() {
     window.addEventListener("resize", onScroll);
     return () => { cancelAnimationFrame(frame); window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); };
   }, []);
-  const scroll = (id) =>
-    document.querySelector(id)?.scrollIntoView({ behavior: "smooth" });
+  useEffect(() => {
+    const frame = document.querySelector('.catalog-frame');
+    if (!frame) return;
+    let startX = 0;
+    const onDown = (event) => { startX = event.clientX; };
+    const onUp = (event) => {
+      const delta = event.clientX - startX;
+      if (Math.abs(delta) < 42) return;
+      const next = Math.max(0, Math.min(films.length - 1, catalogFilm + (delta < 0 ? 1 : -1)));
+      const section = catalogRef.current;
+      if (section) window.scrollTo({ top: section.offsetTop + (section.offsetHeight - window.innerHeight) * (next / (films.length - 1)), behavior: 'smooth' });
+    };
+    frame.addEventListener('pointerdown', onDown);
+    frame.addEventListener('pointerup', onUp);
+    return () => { frame.removeEventListener('pointerdown', onDown); frame.removeEventListener('pointerup', onUp); };
+  }, [catalogFilm]);
+  useEffect(() => {
+    const frame = document.querySelector('.catalog-frame');
+    if (!frame) return;
+    frame.classList.remove('is-changing');
+    const animationFrame = requestAnimationFrame(() => frame.classList.add('is-changing'));
+    return () => cancelAnimationFrame(animationFrame);
+  }, [catalogFilm]);
+  useEffect(() => {
+    const frame = document.querySelector('.catalog-frame');
+    if (!frame) return;
+    let overlay = frame.querySelector('.catalog-siena-overlay');
+    if (!overlay) {
+      overlay = document.createElement('div');
+      overlay.className = 'catalog-siena-overlay';
+      ['award', 'copy', 'acclaim'].forEach((name) => {
+        const element = document.createElement('div');
+        element.className = 'siena-' + name;
+        overlay.append(element);
+      });
+      frame.append(overlay);
+    }
+    const details = filmDetails[catalogFilm];
+    const film = films[catalogFilm];
+    const award = overlay.querySelector('.siena-award');
+    const copy = overlay.querySelector('.siena-copy');
+    const acclaim = overlay.querySelector('.siena-acclaim');
+    award.textContent = details.year + '\n' + details.award;
+    copy.replaceChildren();
+    [film.genre.toUpperCase(), film.title.toUpperCase(), 'DIRECTOR                       ' + details.director, 'YEAR                               ' + details.year, 'CATEGORY                         ' + film.genre].forEach((value, index) => {
+      const element = document.createElement(index === 1 ? 'h2' : 'p');
+      element.textContent = value;
+      copy.append(element);
+    });
+    const explore = document.createElement('button');
+    explore.type = 'button';
+    explore.className = 'ticket-button';
+    explore.textContent = 'EXPLORE  →';
+    explore.onclick = () => setModal({ ...film, video: catalogVideos[catalogFilm] });
+    explore.textContent = 'EXPLORE';
+    const exploreArrow = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    exploreArrow.classList.add('arrow');
+    exploreArrow.setAttribute('viewBox', '0 0 11 10');
+    exploreArrow.setAttribute('aria-hidden', 'true');
+    const exploreArrowPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    exploreArrowPath.setAttribute('fill', 'currentColor');
+    exploreArrowPath.setAttribute('d', 'M4.481.005a6.65 6.65 0 0 1 6.46 4.659c.078.229.08.479-.003.706C10.302 7.105 8.318 10 4.48 10V8.39c.941.127 2.922-.257 4.442-2.603H0V4.208h8.938c-.756-1.229-2.216-2.78-4.457-2.78V.006Z');
+    exploreArrow.append(exploreArrowPath);
+    explore.append(exploreArrow);
+    copy.append(explore);
+    acclaim.replaceChildren();
+    details.acclaim.forEach((quote) => {
+      const item = document.createElement('div');
+      const stars = document.createElement('span');
+      const label = document.createElement('small');
+      const text = document.createElement('strong');
+      stars.textContent = '★★★★★';
+      label.textContent = 'CRITICAL ACCLAIM';
+      text.textContent = quote;
+      item.append(stars, label, text);
+      acclaim.append(item);
+    });
+    overlay.classList.remove('is-visible');
+    const animationFrame = requestAnimationFrame(() => overlay.classList.add('is-visible'));
+    return () => cancelAnimationFrame(animationFrame);
+  }, [catalogFilm]);
+  const scroll = (id) => {
+    if (id === '#film-details') {
+      window.history.pushState({}, '', '/film-details');
+      setIsAboutPage(true);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    if (isAboutPage) {
+      window.history.pushState({}, '', '/');
+      setIsAboutPage(false);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
   const hero = slides[active];
+  const activeFilm = films[catalogFilm];
+  const activeFilmDetails = filmDetails[catalogFilm];
+  const jumpToFilm = (index) => {
+    const target = catalogRef.current;
+    if (!target) return;
+    window.scrollTo({ top: target.offsetTop + (target.offsetHeight - window.innerHeight) * (index / (films.length - 1)), behavior: 'smooth' });
+  };
+  const handleContactSubmit = (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const data = new FormData(form);
+    const mobile = String(data.get('mobile') || '').replace(/\D/g, '');
+    const attachment = data.get('attachment');
+    const validDocument = attachment instanceof File && /\.(pdf|doc|docx)$/i.test(attachment.name) && attachment.size <= 5 * 1024 * 1024;
+    if (!/^\d{10}$/.test(mobile)) {
+      setContactStatus('Please enter an exact 10-digit mobile number.');
+      return;
+    }
+    if (!validDocument) {
+      setContactStatus('Attach a PDF, DOC, or DOCX file up to 5 MB.');
+      return;
+    }
+    setContactStatus('Form validated successfully. Our team will review your enquiry.');
+    form.reset();
+  };
   return (
-    <main>
+    <main className={isAboutPage ? 'about-page' : ''}>
       <header className="site-header">
-        <button className="brand" onClick={() => scroll("#top")}>
-          <img src={whiteLogo} alt="Drishyam Films" />
-         
+        <button className="brand" onClick={() => scroll("#top")} onMouseEnter={() => setLogoHovered(true)} onMouseLeave={() => setLogoHovered(false)} onFocus={() => setLogoHovered(true)} onBlur={() => setLogoHovered(false)}>
+          <img src={logoHovered ? pinkLogo : whiteLogo} alt="Drishyam Films" />
         </button>
         <nav>
           {/* <button onClick={() => scroll("#films")}>Films &amp; Series</button>
@@ -144,15 +344,15 @@ function App() {
                 setMenu(false);
               }}
             >
-              Films &amp; Series <b>01</b>
+              Our Films <b>01</b>
             </button>
             <button
               onClick={() => {
-                scroll("#about");
+                scroll("#film-details");
                 setMenu(false);
               }}
             >
-              About <b>02</b>
+              Drishyam Films International <b>02</b>
             </button>
             <button
               onClick={() => {
@@ -160,7 +360,7 @@ function App() {
                 setMenu(false);
               }}
             >
-              Stories <b>03</b>
+              Drishyam Play <b>03</b>
             </button>
             <button
               onClick={() => {
@@ -168,7 +368,25 @@ function App() {
                 setMenu(false);
               }}
             >
-              Contact <b>04</b>
+              Our Story <b>04</b>
+            </button>
+
+             <button className="ticket-button side-ticket"
+              onClick={() => {
+                scroll("#contact");
+                setMenu(false);
+              }}
+            >
+              Core Team <b>05</b>
+            </button>
+
+             <button className="ticket-button side-ticket"
+              onClick={() => {
+                scroll("#contact");
+                setMenu(false);
+              }}
+            >
+              Let’s connect <b>06</b>
             </button>
           </div>
           <div className="side-contact">
@@ -191,7 +409,7 @@ function App() {
           muted
           loop
           playsInline
-          preload={'auto'}
+          preload={'metadata'}
           aria-hidden={'true'}
           onMouseEnter={() => setHeroHovered(true)}
           onMouseLeave={() => setHeroHovered(false)}
@@ -202,10 +420,10 @@ function App() {
           <h1>{hero.title}</h1>
           <span>{hero.date}</span>
           <div className="hero-actions">
-            <button className="button light" onClick={() => setModal(hero)}>
-              <Play /> WATCH TRAILER
+            <button className="button light ticket-button ticket-button--solid" onClick={() => setModal(hero)}>
+              WATCH TRAILER <Play />
             </button>
-            <button className="button ghost" onClick={() => scroll("#films")}>
+            <button className="button ghost ticket-button" onClick={() => scroll("#films")}>
               DISCOVER FILM <Arrow />
             </button>
           </div>
@@ -226,7 +444,7 @@ function App() {
       </section>
       <section className="premiere">
         <div className="premiere-copy">
-          <p className="eyebrow">ABOUT US PREMIERE</p>
+          <p className="eyebrow"> OUR STORIES </p>
           <h2>
             Cinema for
             <br />
@@ -240,7 +458,7 @@ function App() {
             singular point of view. Stories from India that meet the world with heart, craft and a
             singular point of view.
           </p>
-          <button onClick={() => scroll("#films")} className="discover">
+          <button onClick={() => scroll("#films")} className="discover ticket-button">
             EXPLORE <Arrow />
           </button>
         </div>
@@ -249,14 +467,7 @@ function App() {
             src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1500&q=88"
             alt="Film projection"
           />
-          <button
-            className={'premiere-play'}
-            onClick={() => setPremiereOpen(true)}
-            aria-label={'Play About Us premiere video'}
-          >
-            <span aria-hidden={'true'}>&#9654;</span>
-            <small>PLAY</small>
-          </button>
+          <img className={'premiere-film-cover'} src={masaanStoriesImage} alt={'Masaan film still'} />
           <div className="art-label">
             EST.
             <br />
@@ -268,36 +479,59 @@ function App() {
       </section>
       <section id="films" className="catalog" ref={catalogRef}>
         <div className="catalog-stage"><div className="catalog-frame">
-          {films.map((film, index) => <video key={film.title} className={`catalog-media ${index === catalogFilm ? "is-active" : ""}`} src={sliderVideos[index]} poster={film.image} autoPlay muted loop playsInline preload="metadata" aria-hidden="true" />)}
+          {films.map((film, index) => <video key={film.title} className={`catalog-media ${index === catalogFilm ? "is-active" : ""}`} src={catalogVideos[index]} autoPlay muted loop playsInline preload="metadata" aria-hidden="true" />)}
           <div className="catalog-vignette" /><div className="catalog-grain" aria-hidden="true" />
           <div className="catalog-topline"><p>OUR FILMS</p><span>{String(catalogFilm + 1).padStart(2, "0")} / {String(films.length).padStart(2, "0")}</span></div>
-          <div className="catalog-copy"><p className="catalog-genre">{films[catalogFilm].genre}</p><h2 key={films[catalogFilm].title}>{films[catalogFilm].title}</h2><p className="catalog-description">A Drishyam Films story, made to stay with you long after the screen fades to black.</p><button onClick={() => setModal({ ...films[catalogFilm], video: sliderVideos[catalogFilm] })}>EXPLORE FILM <Arrow /></button></div>
-          <div className="catalog-side-note">SCROLL TO DISCOVER</div><div className="catalog-progress" aria-hidden="true"><i style={{ transform: `scaleX(${Math.max(.06, catalogProgress)})` }} /></div>
-          <div className="catalog-dots">{films.map((film, index) => <button key={film.title} className={index === catalogFilm ? "is-active" : ""} aria-label={`View ${film.title}`} onClick={() => { const target = catalogRef.current; if (target) window.scrollTo({ top: target.offsetTop + (target.offsetHeight - window.innerHeight) * (index / films.length), behavior: "smooth" }); }}><span>0{index + 1}</span></button>)}</div>
+          <div className="catalog-copy"><p className="catalog-genre">{films[catalogFilm].genre}</p><h2 key={films[catalogFilm].title}>{films[catalogFilm].title}</h2><p className="catalog-description">A Drishyam Films story, made to stay with you long after the screen fades to black.</p><button className="ticket-button" onClick={() => setModal({ ...films[catalogFilm], video: catalogVideos[catalogFilm] })}>EXPLORE FILM <Arrow /></button></div>
+          <div className="catalog-side-note">SCROLL TO DISCOVER</div>
+          {/* <div className="catalog-progress" aria-hidden="true"><i style={{ transform: `scaleX(${Math.max(.06, catalogProgress)})` }} /></div> */}
+          {/* <div className="catalog-dots">{films.map((film, index) => <button key={film.title} className={index === catalogFilm ? "is-active" : ""} aria-label={`View ${film.title}`} onClick={() => { const target = catalogRef.current; if (target) window.scrollTo({ top: target.offsetTop + (target.offsetHeight - window.innerHeight) * (index / films.length), behavior: "smooth" }); }}><span>0{index + 1}</span></button>)}</div> */}
         </div></div>
       </section>
-      <section id="about" className="spotlight">
-        <img
-          src="https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?auto=format&fit=crop&w=2200&q=90"
-          alt="Theatre audience"
-        />
-        <div className="spotlight-shade" />
-        <div className="spotlight-copy">
-          <p className="eyebrow">OUR DRISHYAM TESTIMONIALS</p>
-          <h2>
-            Independent
-            <br />
-            <em>by nature.</em>
-          </h2>
-          <p>
-            We believe the best films leave space for you to find yourself in
-            them.
-          </p>
-          <button className="button light">
-            OUR STORY <Arrow />
-          </button>
+
+      <FilmDetailsPage onPlay={() => setPremiereOpen(true)} onExplore={() => scroll('#films')} />
+
+      <section id='contact' className='bg-[#151114] px-5 py-20 text-[#f8f5ef] sm:px-8 lg:px-14 lg:py-28'>
+        <div className='mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.9fr_1.1fr] lg:gap-20'>
+          <div className='flex flex-col justify-between border-t border-white/25 pt-6'>
+            <div>
+              <p className='font-mono text-[10px] font-bold tracking-[.18em] text-[#e97f6f]'>CONTACT US</p>
+              <h2 className='mt-5 max-w-md text-5xl font-extrabold leading-[.9] tracking-[-.07em] sm:text-6xl'>Start a conversation.</h2>
+              <p className='mt-7 max-w-md text-sm leading-7 text-white/65 sm:text-base'>Have a story, partnership, or project to share? Send us the essentials and the Drishyam Films team will review your enquiry.</p>
+            </div>
+            <p className='mt-12 font-mono text-[10px] tracking-[.14em] text-white/45'>ALL FIELDS ARE REQUIRED</p>
+          </div>
+
+          <form className='border-t border-white/25 pt-6' onSubmit={handleContactSubmit}>
+            <div className='grid gap-5 sm:grid-cols-2'>
+              <label className='block sm:col-span-2'>
+                <span className='mb-2 block font-mono text-[10px] font-bold tracking-[.14em] text-white/65'>FULL NAME *</span>
+                <input className='w-full border border-white/25 bg-transparent px-4 py-3.5 text-sm outline-none transition focus:border-[#e97f6f]' name='fullName' type='text' autoComplete='name' required />
+              </label>
+              <label className='block'>
+                <span className='mb-2 block font-mono text-[10px] font-bold tracking-[.14em] text-white/65'>EMAIL *</span>
+                <input className='w-full border border-white/25 bg-transparent px-4 py-3.5 text-sm outline-none transition focus:border-[#e97f6f]' name='email' type='email' autoComplete='email' required />
+              </label>
+              <label className='block'>
+                <span className='mb-2 block font-mono text-[10px] font-bold tracking-[.14em] text-white/65'>MOBILE NUMBER *</span>
+                <input className='w-full border border-white/25 bg-transparent px-4 py-3.5 text-sm outline-none transition focus:border-[#e97f6f]' name='mobile' type='tel' inputMode='numeric' pattern='[0-9]{10}' minLength={10} maxLength={10} autoComplete='tel' required />
+              </label>
+              <label className='block sm:col-span-2'>
+                <span className='mb-2 block font-mono text-[10px] font-bold tracking-[.14em] text-white/65'>MESSAGE *</span>
+                <textarea className='min-h-32 w-full resize-y border border-white/25 bg-transparent px-4 py-3.5 text-sm outline-none transition focus:border-[#e97f6f]' name='message' required />
+              </label>
+              <label className='block sm:col-span-2'>
+                <span className='mb-2 block font-mono text-[10px] font-bold tracking-[.14em] text-white/65'>ATTACH DOCUMENT *</span>
+                <input className='block w-full border border-dashed border-white/30 bg-transparent px-4 py-3 text-xs text-white/70 file:mr-4 file:border-0 file:bg-[#e97f6f] file:px-3 file:py-2 file:font-mono file:text-[10px] file:font-bold file:tracking-[.1em] file:text-[#171114]' name='attachment' type='file' accept='.pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document' required />
+                <span className='mt-2 block font-mono text-[9px] tracking-[.1em] text-white/40'>PDF, DOC OR DOCX · MAXIMUM 5 MB</span>
+              </label>
+            </div>
+            {contactStatus && <p className='mt-5 font-mono text-[11px] tracking-[.05em] text-[#e97f6f]' role='status'>{contactStatus}</p>}
+            <button className='contact-submit mt-7' type='submit'>SEND ENQUIRY <Arrow /></button>
+          </form>
         </div>
       </section>
+
       <section id="journal" className="journal">
         <div className="journal-heading">
           <p className="eyebrow">JOURNAL</p>
@@ -306,7 +540,7 @@ function App() {
             <br />
             behind the picture.
           </h2>
-          <button>
+          <button className="ticket-button">
             ALL STORIES <Arrow />
           </button>
         </div>
@@ -346,7 +580,7 @@ function App() {
           </article>
         </div>
       </section>
-      <section id="contact" className="signup">
+      <section id="newsletter" className="signup">
         <div className="signup-glow" />
         <div className="signup-copy">
           <p className="eyebrow">STAY IN THE FRAME</p>
@@ -399,7 +633,7 @@ function App() {
           <div>
             <p className="footer-label">EXPLORE</p>
             <a href="#films">Films &amp; Series</a>
-            <a href="#about">The Studio</a>
+            <a href="#film-details">Film Details</a>
             <a href="#journal">Journal</a>
           </div>
           <div>
@@ -417,7 +651,7 @@ function App() {
         </div>
         <div className="footer-bottom">
           <p>&copy; 2026 DRISHYAM FILMS. ALL RIGHTS RESERVED.</p>
-          <p>INDEPENDENT CINEMA / WORLDWIDE</p>
+          <p></p>
           <p>SCROLL TO BEGIN &#8593;</p>
         </div>
       </footer>
@@ -440,7 +674,7 @@ function App() {
             >
               &times;
             </button>
-            <video src={siyaVideo} autoPlay controls playsInline />
+            <video src={masaanCatalogVideo} autoPlay controls playsInline />
           </div>
         </div>
       )}
