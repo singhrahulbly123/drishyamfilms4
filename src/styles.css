@@ -3946,11 +3946,25 @@ button.ticket-button:hover>.ticket-hover-svg {
 }
 
 
-/* One transparent ticket frame in both states; only the SVG turns white. */
-button.ticket-button:hover {
-    --ticket-ink: #f8f3ef;
-    --ticket-line: #f8f3ef;
-    color: #f8f3ef !important;
+/* Fill only the SVG silhouette; keep the label above it and layout unchanged. */
+button.ticket-button {
+    isolation: isolate;
+    min-width: 142px;
+    min-height: 44px;
+    padding: 0 13px 0 17px !important;
+}
+
+button.ticket-button > .ticket-default-svg {
+    z-index: -1 !important;
+}
+
+button.ticket-button:hover,
+.siena-copy button.ticket-button:hover,
+.imdb-about-tiles button.ticket-button:hover,
+.imdb-about-feature.ticket-button:hover {
+    --ticket-ink: #111;
+    --ticket-line: #111;
+    color: #111 !important;
     background: transparent !important;
     clip-path: none;
     transform: none;
@@ -3961,12 +3975,17 @@ button.ticket-button:hover > .ticket-default-svg {
     display: block;
 }
 
-button.ticket-button:hover > .ticket-default-svg path {
+button.ticket-button:hover > .ticket-default-svg [data-explore] {
+    fill: #fff;
     stroke: #fff;
 }
 
+button.ticket-button:hover > .ticket-default-svg [data-explore-line] {
+    stroke: #111;
+}
+
 button.ticket-button:hover .arrow svg {
-    color: #fff;
+    color: #111;
 }
 
 button.ticket-button::before,

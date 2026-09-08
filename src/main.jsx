@@ -4,10 +4,10 @@ import FilmDetailsPage from './pages/film-details/film-details';
 import "./styles.css";
 import whiteLogo from './asstes/logo/white-logo.svg';
 import pinkLogo from './asstes/logo/pink.png';
-import masaanCatalogVideo from './asstes/videos/Masaan_1.mov';
-import dhanakCatalogVideo from './asstes/videos/Dhanak_1.mov';
-import newtonCatalogVideo from './asstes/videos/Newton_4.mov';
-import siyaCatalogVideo from './asstes/videos/Siya_1.mov';
+import masaanCatalogVideo from './asstes/videos/Masaan_1.mp4';
+import dhanakCatalogVideo from './asstes/videos/Dhanak_1.mp4';
+import newtonCatalogVideo from './asstes/videos/Newton_4.mp4';
+import siyaCatalogVideo from './asstes/videos/Siya_1.mp4';
 import masaanStoriesImage from './asstes/images/masaan-our-stories.jpg';
 
 const sliderVideos = [newtonCatalogVideo, siyaCatalogVideo];
@@ -148,6 +148,7 @@ function App() {
         svg.classList.add(className);
         svg.setAttribute('fill', 'none');
         svg.setAttribute('viewBox', '0 0 142 44');
+        svg.setAttribute('preserveAspectRatio', 'none');
         svg.setAttribute('width', '100%');
         svg.setAttribute('aria-hidden', 'true');
         const outline = document.createElementNS(svgNamespace, 'path');
