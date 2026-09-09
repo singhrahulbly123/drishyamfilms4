@@ -67,6 +67,15 @@ const films = [
 ];
 const Arrow = () => <span className={'arrow'} aria-hidden={true}><svg xmlns={'http://www.w3.org/2000/svg'} fill={'none'} viewBox={'0 0 11 10'}><path fill={'currentColor'} d={'M4.481.005a6.65 6.65 0 0 1 6.46 4.659c.078.229.08.479-.003.706C10.302 7.105 8.318 10 4.48 10V8.39c.941.127 2.922-.257 4.442-2.603H0V4.208h8.938c-.756-1.229-2.216-2.78-4.457-2.78V.006Z'} /></svg></span>;
 const Play = () => <span className="play">&#9654;</span>;
+const SocialIcon = ({ platform }) => {
+  if (platform === 'instagram') {
+    return <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle className="social-icon-dot" cx="17.5" cy="6.5" r="1" /></svg>;
+  }
+  if (platform === 'linkedin') {
+    return <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M8 10v7M8 7v.01M12 17v-7m0 3a3 3 0 0 1 6 0v4" /></svg>;
+  }
+  return <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="4" /><path className="social-icon-play" d="m10 9 5 3-5 3Z" /></svg>;
+};
 const filmDetails = [
   { year: '2015', director: 'Neeraj Ghaywan', award: 'FIPRESCI PRIZE\nCANNES 2015', acclaim: ['Cannes 2015', 'FIPRESCI Prize', 'Prix de l Avenir'] },
   { year: '2016', director: 'Nagesh Kukunoor', award: 'NATIONAL FILM AWARD\nBEST CHILDRENS FILM', acclaim: ['Crystal Bear', 'Grand Prix', 'Berlinale 2015'] },
@@ -80,6 +89,7 @@ function App() {
     [modal, setModal] = useState(null),
     [menu, setMenu] = useState(false),
     [logoHovered, setLogoHovered] = useState(false),
+    [footerLogoHovered, setFooterLogoHovered] = useState(false),
     [isAboutPage, setIsAboutPage] = useState(() => window.location.pathname === '/film-details'),
     [premiereOpen, setPremiereOpen] = useState(false),
     [catalogFilm, setCatalogFilm] = useState(0),
@@ -459,15 +469,15 @@ function App() {
             </button>
           ))}
         </div>
-        <div className="hero-credit">DRISHYAM FILMS / INDEPENDENT CINEMA</div>
+        <div className="hero-credit">DRISHYAM FILMS</div>
       </section>
       <section className="premiere">
         <div className="premiere-copy">
           <p className="eyebrow"> OUR STORIES </p>
           <h2>
-            Cinema for
+            Stories with
             <br />
-            <em>the curious.</em>
+            <em>Soul</em>
           </h2>
           <p>
             Founded in 2014 by Manish Mundra, Drishyam Films operates on a distinct promise: cinema with a soul. The studio champions independent Indian cinema, giving a global platform to fearless storytellers who capture honest, deeply human truths without compromise.
@@ -477,7 +487,7 @@ function App() {
 Expanding seamlessly across theatrical and streaming spaces, recent titles like Love Hostel and Siya continue this legacy. Looking forward, Drishyam remains dedicated to discovering bold directorial voices, expanding into international co-productions, and shaping cinema that endures.
           </p>
           <button onClick={() => scroll("#films")} className="discover ticket-button">
-            EXPLORE <Arrow />
+            <span className="ticket-label">EXPLORE</span> <Arrow />
           </button>
         </div>
         <div className="premiere-art">
@@ -498,7 +508,7 @@ Expanding seamlessly across theatrical and streaming spaces, recent titles like 
           <div className="art-label">
             EST.
             <br />
-            2010
+            2014
             <br />
             <b>NEW DELHI</b>
           </div>
@@ -654,8 +664,8 @@ Let's explore the possibility of creating something meaningful together.
       </section>
       <footer className="cinema-footer">
         <div className="footer-top">
-          <div className="footer-brand footer-logo">
-            <img src={whiteLogo} alt="Drishyam Films" />
+          <div className="footer-brand footer-logo" onMouseEnter={() => setFooterLogoHovered(true)} onMouseLeave={() => setFooterLogoHovered(false)}>
+            <img src={footerLogoHovered ? pinkLogo : whiteLogo} alt="Drishyam Films" />
            
           </div>
           <p>
@@ -666,7 +676,7 @@ Let's explore the possibility of creating something meaningful together.
           </a>
         </div>
         <div className="footer-wordmark" aria-hidden="true">
-          DRISHYAM
+          DRISHYAM FILMS
         </div>
         <div className="footer-columns">
           <div>
@@ -677,9 +687,9 @@ Let's explore the possibility of creating something meaningful together.
           </div>
           <div>
             <p className="footer-label">CONNECT</p>
-            <a href="#contact">Instagram</a>
-            <a href="#contact">LinkedIn</a>
-            <a href="#contact">YouTube</a>
+            <a className="footer-social-link" href="#contact"><SocialIcon platform="instagram" />Instagram</a>
+            <a className="footer-social-link" href="#contact"><SocialIcon platform="linkedin" />LinkedIn</a>
+            <a className="footer-social-link" href="#contact"><SocialIcon platform="youtube" />YouTube</a>
           </div>
           <div className="footer-cta">
             <p className="footer-label">A STORY TO TELL?</p>

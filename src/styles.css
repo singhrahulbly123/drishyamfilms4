@@ -1208,6 +1208,25 @@ h2 em {
     }
 }
 
+/* Centre the homepage Explore label in its ticket compartment. */
+
+.premiere-copy .discover {
+    justify-content: flex-end;
+    padding: 0 16px 0 0 !important;
+}
+
+.premiere-copy .discover .ticket-label {
+    position: absolute;
+    left: 0;
+    width: calc(100% - var(--ticket-arrow-width));
+    text-align: center;
+}
+
+.premiere-copy .discover:hover > .ticket-default-svg [data-explore] {
+    fill: var(--pink);
+    stroke: var(--pink);
+}
+
 @media (max-width: 800px) {
     .about-page .about-imdb-page {
         min-height: 100svh;
@@ -2399,6 +2418,49 @@ footer.cinema-footer {
 .cinema-footer .footer-logo {
     display: flex;
     align-items: center;
+    align-self: center;
+    margin-top: 0;
+    padding: 15px 0;
+}
+
+.cinema-footer .footer-logo img {
+    transition: transform .25s ease, filter .25s ease;
+}
+
+.cinema-footer .footer-logo:hover img {
+    transform: scale(1.04);
+}
+
+.cinema-footer .footer-wordmark {
+    font-size: clamp(52px, 9vw, 154px);
+    letter-spacing: -.085em;
+}
+
+.cinema-footer .footer-social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.cinema-footer .footer-social-link svg {
+    width: 16px;
+    height: 16px;
+    flex: 0 0 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.cinema-footer .footer-social-link .social-icon-dot {
+    fill: currentColor;
+    stroke: none;
+}
+
+.cinema-footer .footer-social-link .social-icon-play {
+    fill: currentColor;
+    stroke: none;
 }
 
 .cinema-footer .footer-top>p {
@@ -2458,8 +2520,8 @@ footer.cinema-footer {
 
 @media (max-width: 420px) {
     .cinema-footer .footer-wordmark {
-        font-size: 17vw;
-        letter-spacing: -0.09em;
+        font-size: 11.4vw;
+        letter-spacing: -0.085em;
     }
     .cinema-footer .footer-columns {
         gap: 27px;
@@ -4083,17 +4145,17 @@ button.ticket-button:not(:hover)>.ticket-hover-svg {
     width: 80px;
     height: 50px;
     color: #111113;
-    background: #f8f5ef;
+    background: rgba(248, 245, 239, .72);
     border: 0;
     border-radius: 0;
     clip-path: polygon(0 10%, 5% 0, 44% 0, 50% 10%, 56% 0, 95% 0, 100% 10%, 100% 90%, 95% 100%, 56% 100%, 50% 90%, 44% 100%, 5% 100%, 0 90%);
-    backdrop-filter: none;
+    backdrop-filter: blur(6px);
     transform: none;
 }
 
 .site-header .menu-button:hover {
     color: #111113;
-    background: #f8f5ef;
+    background: var(--pink);
     border: 0;
     transform: none;
 }
