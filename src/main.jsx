@@ -9,6 +9,7 @@ import dhanakCatalogVideo from './asstes/videos/Dhanak_1.mp4';
 import newtonCatalogVideo from './asstes/videos/Newton_4.mp4';
 import siyaCatalogVideo from './asstes/videos/Siya_1.mp4';
 import masaanStoriesImage from './asstes/images/masaan-our-stories.jpg';
+import contactBackgroundImage from './asstes/images/maxres1.jpg';
 
 const sliderVideos = [masaanCatalogVideo, siyaCatalogVideo, newtonCatalogVideo];
 const catalogVideos = [masaanCatalogVideo, dhanakCatalogVideo, newtonCatalogVideo, siyaCatalogVideo];
@@ -157,7 +158,7 @@ function App() {
   useEffect(() => {
     const svgNamespace = 'http://www.w3.org/2000/svg';
     const addTicketHoverSvg = (button) => {
-      if (button.matches('.brand, .menu-button, .side-top > button, .side-links button, .modal-close, .video-modal-close, .premiere-play, .slide-tabs button')) return;
+      if (button.matches('.brand, .menu-button, .side-top > button, .side-links button:not(.side-ticket), .modal-close, .video-modal-close, .premiere-play, .slide-tabs button')) return;
       button.classList.add('ticket-button');
       if (button.querySelector(':scope > .ticket-default-svg')) return;
       const createTicketSvg = (className, outlineStroke, dividerStroke, outlineData, dividerData) => {
@@ -449,7 +450,7 @@ function App() {
           <h1>{hero.title}</h1>
           <span>{hero.date}</span>
           <div className="hero-actions">
-            <button className="button light ticket-button ticket-button--solid" onClick={() => setModal(hero)}>
+            <button className="button light ticket-button" onClick={() => setModal(hero)}>
               WATCH TRAILER <Play />
             </button>
             <button className="button ghost ticket-button" onClick={() => scroll("#films")}>
@@ -531,7 +532,7 @@ Expanding seamlessly across theatrical and streaming spaces, recent titles like 
       <section
         id='contact'
         className='contact-section px-5 py-20 text-[#f8f5ef] sm:px-8 lg:px-14 lg:py-28'
-        style={{ '--contact-bg': `url(${masaanStoriesImage})` }}
+        style={{ '--contact-bg': `url(${contactBackgroundImage})` }}
       >
         <div className='contact-content mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.9fr_1.1fr] lg:gap-20'>
           <div className='flex flex-col justify-between border-t border-white/25 pt-6'>
@@ -576,7 +577,7 @@ Let's explore the possibility of creating something meaningful together.
               </label>
             </div>
             {contactStatus && <p className='mt-5 font-mono text-[11px] tracking-[.05em] text-[#e97f6f]' role='status'>{contactStatus}</p>}
-            <button className='contact-submit mt-7' type='submit'>SEND ENQUIRY <Arrow /></button>
+            <button className='contact-submit ticket-button mt-7' type='submit'>SEND ENQUIRY <Arrow /></button>
           </form>
         </div>
       </section>
@@ -589,7 +590,7 @@ Let's explore the possibility of creating something meaningful together.
             <br />
            <em> behind the picture.</em>
           </h2>
-          <button type="button" className="contact-submit">
+          <button type="button" className="contact-submit ticket-button">
             ALL STORIES <Arrow />
           </button>
         </div>
@@ -654,7 +655,7 @@ Let's explore the possibility of creating something meaningful together.
             <label htmlFor="email">EMAIL ADDRESS</label>
             <div>
               <input id="email" type="email" placeholder="you@example.com" />
-              <button type="submit" className="ticket-button ticket-button--solid signup-submit" aria-label="Subscribe">SUBSCRIBE <Arrow /></button>
+              <button type="submit" className="ticket-button signup-submit" aria-label="Subscribe">SUBSCRIBE <Arrow /></button>
             </div>
           </form>
           <small>

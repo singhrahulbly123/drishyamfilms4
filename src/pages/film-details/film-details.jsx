@@ -1,7 +1,43 @@
 import siyaFeatureVideo from "../../asstes/videos/Siya_1.mp4";
 import siyaPoster from "../../asstes/images/siya-poster.jpg";
+import masaanPoster from "../../asstes/images/masaan-poster.jpg";
+import dhanakPoster from "../../asstes/images/dhanak-poster.jpg";
+import newtonPoster from "../../asstes/images/newton-poster.png";
+import siyaGalleryPoster from "../../asstes/images/siya-gallery-poster.jpg";
 
 const Arrow = () => <span className={"arrow"}>→</span>;
+const galleryRows = [
+  [
+    { title: "Siya", detail: "Official poster", poster: siyaGalleryPoster },
+    { title: "Masaan", detail: "Official poster", poster: masaanPoster },
+    { title: "Newton", detail: "Official poster", poster: newtonPoster },
+    { title: "Dhanak", detail: "Official poster", poster: dhanakPoster },
+  ],
+  [
+    { title: "Newton", detail: "Official poster", poster: newtonPoster },
+    { title: "Dhanak", detail: "Official poster", poster: dhanakPoster },
+    { title: "Siya", detail: "Official poster", poster: siyaGalleryPoster },
+    { title: "Masaan", detail: "Official poster", poster: masaanPoster },
+  ],
+];
+
+function GalleryCard({ item, duplicate }) {
+  return (
+    <figure className={"film-gallery-card"} aria-hidden={duplicate || undefined}>
+      <img
+        src={item.poster}
+        alt={duplicate ? "" : `${item.title} movie poster`}
+        loading={"lazy"}
+        decoding={"async"}
+      />
+      <figcaption>
+        <span>{item.detail}</span>
+        <b>{item.title}</b>
+      </figcaption>
+    </figure>
+  );
+}
+
 
 export default function FilmDetailsPage({ onPlay, onExplore }) {
   return (
@@ -64,7 +100,7 @@ export default function FilmDetailsPage({ onPlay, onExplore }) {
               <b>FOUNDED</b>2010 · New Delhi
             </p>
             <button
-              className={"imdb-about-watch ticket-button ticket-button--solid"}
+              className={"imdb-about-watch ticket-button"}
               type={"button"}
               onClick={onExplore}
             >
@@ -86,13 +122,7 @@ export default function FilmDetailsPage({ onPlay, onExplore }) {
               fighting for justice against a system determined to silence her.
               The film marks Manish Mundra’s directorial debut.
             </p>
-            <button
-              className={"ticket-button masaan-review-watch"}
-              type={"button"}
-              onClick={onPlay}
-            >
-              WATCH SIYA <Arrow />
-            </button>
+         
           </div>
           <dl className={"masaan-facts"}>
             <div>
@@ -168,14 +198,7 @@ export default function FilmDetailsPage({ onPlay, onExplore }) {
               </div>
             </section>
           </div>
-          <div className={"masaan-producers"}>
-            <span>PRODUCTION &amp; WRITING</span>
-            <p>
-              Produced by Raghav Gupta · Drishyam Films + Panorama Studios ·
-              Written by Manish Mundra, Haider Rizvi and Samah · Dialogues by
-              Rashmi Somvanshi
-            </p>
-          </div>
+        
           <div className={"masaan-links"}>
             <span>READ THE REVIEWS</span>
             <a
@@ -212,6 +235,35 @@ export default function FilmDetailsPage({ onPlay, onExplore }) {
             >
               Outlook India ↗
             </a>
+          </div>
+        </section>
+        <section className={"film-gallery"} aria-labelledby={"film-gallery-title"}>
+          <div className={"film-gallery-heading"}>
+            <span>FRAMES FROM OUR FILMS</span>
+            <h2 id={"film-gallery-title"}>Gallery</h2>
+            <p>Moments that live beyond the final cut.</p>
+          </div>
+          <div className={"film-gallery-reels"}>
+            {galleryRows.map((row, rowIndex) => (
+              <div
+                className={`film-gallery-marquee film-gallery-marquee--${rowIndex === 0 ? "left" : "right"}`}
+                key={rowIndex}
+              >
+                <div className={"film-gallery-track"}>
+                  {[false, true].map((duplicate) => (
+                    <div className={"film-gallery-group"} key={String(duplicate)}>
+                      {row.map((item, itemIndex) => (
+                        <GalleryCard
+                          item={item}
+                          duplicate={duplicate}
+                          key={`${item.title}-${itemIndex}`}
+                        />
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </section>
       </div>
