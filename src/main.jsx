@@ -7,8 +7,9 @@ import pinkLogo from './asstes/logo/pink.png';
 import masaanCatalogVideo from './asstes/videos/Masaan_1.mp4';
 import dhanakCatalogVideo from './asstes/videos/Dhanak_1.mp4';
 import newtonCatalogVideo from './asstes/videos/Newton_4.mp4';
+import drishyamFilmsVideo from './asstes/videos/DrishyamFilms.mp4';
 import siyaCatalogVideo from './asstes/videos/Siya_1.mp4';
-import masaanStoriesImage from './asstes/images/masaan-our-stories.jpg';
+import ourStoriesImage from './asstes/images/maxres1.jpg';
 import contactBackgroundImage from './asstes/images/maxres1.jpg';
 
 const sliderVideos = [masaanCatalogVideo, siyaCatalogVideo, newtonCatalogVideo];
@@ -158,7 +159,7 @@ function App() {
   useEffect(() => {
     const svgNamespace = 'http://www.w3.org/2000/svg';
     const addTicketHoverSvg = (button) => {
-      if (button.matches('.brand, .menu-button, .side-top > button, .side-links button:not(.side-ticket), .modal-close, .video-modal-close, .premiere-play, .slide-tabs button')) return;
+      if (button.matches('.brand, .menu-button, .film-watch-tabs button, .side-top > button, .side-links button:not(.side-ticket), .modal-close, .video-modal-close, .premiere-play, .slide-tabs button')) return;
       button.classList.add('ticket-button');
       if (button.querySelector(':scope > .ticket-default-svg')) return;
       const createTicketSvg = (className, outlineStroke, dividerStroke, outlineData, dividerData) => {
@@ -496,7 +497,7 @@ Expanding seamlessly across theatrical and streaming spaces, recent titles like 
             src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1500&q=88"
             alt="Film projection"
           />
-          <img className={'premiere-film-cover'} src={masaanStoriesImage} alt={'Masaan film still'} />
+          <img className={'premiere-film-cover'} src={ourStoriesImage} alt={'Drishyam Films — Our Story'} />
           <button
             type='button'
             className='premiere-play'
@@ -504,7 +505,7 @@ Expanding seamlessly across theatrical and streaming spaces, recent titles like 
             aria-label='Play Our Stories video'
           >
             <span aria-hidden='true'>&#9654;</span>
-            <small>PLAY FILM</small>
+          
           </button>
           <div className="art-label">
             EST.
@@ -710,7 +711,7 @@ Let's explore the possibility of creating something meaningful together.
           className={'video-modal'}
           role={'dialog'}
           aria-modal={'true'}
-          aria-label={'About Us premiere video'}
+          aria-label={'Drishyam Films — Our Story video'}
           onClick={() => setPremiereOpen(false)}
         >
           <div
@@ -724,7 +725,7 @@ Let's explore the possibility of creating something meaningful together.
             >
               &times;
             </button>
-            <video src={masaanCatalogVideo} autoPlay controls playsInline />
+            <video src={drishyamFilmsVideo} autoPlay controls playsInline />
           </div>
         </div>
       )}
