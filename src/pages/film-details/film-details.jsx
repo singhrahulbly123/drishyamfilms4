@@ -149,34 +149,6 @@ export default function FilmDetailsPage({ onPlay, onExplore }) {
             <b>MANISH MUNDRA</b>
           </div>
         </div>
-        <div className={"imdb-about-details"}>
-          <div className={"imdb-about-copy"}>
-            <span>INDEPENDENT CINEMA</span>
-            <p>
-              We tell distinctive stories from India, made with care and a
-              singular point of view for audiences everywhere.
-            </p>
-            <div>
-              <b>FOCUS</b>
-              <button className={"ticket-button"} type={"button"} onClick={onExplore}>
-                FILMS / SERIES
-              </button>
-              <a href={"#journal"}>STORIES</a>
-            </div>
-          </div>
-          <div className={"imdb-about-side"}>
-            <p>
-              <b>FOUNDED</b>2010 · New Delhi
-            </p>
-            <button
-              className={"imdb-about-watch ticket-button"}
-              type={"button"}
-              onClick={onExplore}
-            >
-              <span>＋</span> EXPLORE OUR FILMS <Arrow />
-            </button>
-          </div>
-        </div>
         <section className="film-story-compact" aria-labelledby="siya-review-title">
           <div className="film-story-inner">
             <div className="film-story-heading">
@@ -185,10 +157,10 @@ export default function FilmDetailsPage({ onPlay, onExplore }) {
               <p className="film-story-meta">2022 <span aria-hidden="true">/</span> Hindi <span aria-hidden="true">/</span> 110 min</p>
             </div>
             <div className="film-story-copy">
-              <p>A young woman finds the courage to stand up to a system determined to silence her. <strong>Siya</strong> is an unflinching story of justice, resilience and the power of a single voice.</p>
+              <p className="film-story-lead"><strong>Siya</strong> follows a young woman who chooses to fight for justice against a system determined to silence her.</p><p>As she confronts powerful interests and the pressure to remain silent, her pursuit of justice becomes a story of courage and resilience. Manish Mundra's directorial debut places her voice at the centre of this Hindi realist crime drama.</p>
               <dl className="film-story-credits">
                 <div><dt>Directed by</dt><dd>Manish Mundra</dd></div>
-                <div><dt>Starring</dt><dd>Pooja Pandey &amp; Vineet Kumar Singh</dd></div>
+                <div><dt>Starring</dt><dd>Pooja Pandey &amp; Vineet Kumar Singh</dd></div><div><dt>Genre</dt><dd>Realist crime drama</dd></div><div><dt>Release</dt><dd>16 September 2022</dd></div>
               </dl>
             </div>
           </div>

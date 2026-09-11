@@ -7743,3 +7743,61 @@ body.menu-is-open {
     .film-watch-tabs button { white-space: normal; }
     .film-watch-providers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+/* Film detail content: warm paper, muted rose, and consistent spacing. */
+.about-page .about-imdb-page { background: #faf7f2; color: #342931; padding-bottom: 0; }
+.about-page .film-story-compact {
+    margin-top: 0;
+    background: radial-gradient(ellipse at top left, #35252d 0%, transparent 60%), #141214;
+    color: #f7f1eb;
+    padding-block: clamp(44px, 5.5vw, 82px);
+}
+.about-page .film-story-inner { max-width: 1280px; margin-inline: auto; }
+.about-page .film-story-heading h2 { font-size: clamp(38px, 4.2vw, 64px); }
+.about-page .film-story-copy { padding-left: clamp(0px, 2vw, 28px); }
+.about-page .film-story-eyebrow::before { content: ''; display: inline-block; width: 26px; height: 1px; background: #aa7a87; margin-right: 12px; vertical-align: middle; }
+.about-page .film-watch { background: #faf7f2; border-top: 1px solid #34293112; }
+.about-page .film-watch-art { padding: 12px; background: #fffdfa; border: 1px solid #e9dfe0; box-shadow: 0 16px 40px #573f4a0d; }
+.about-page .film-watch-art > img { border-radius: 1px; box-shadow: none; }
+.about-page .film-watch-edition { padding-inline: 4px; font-size: 8px; }
+.about-page .film-watch-tabs { background: transparent; padding: 0 0 9px; border: 0; border-bottom: 1px solid #dcd0d5; gap: 8px; }
+.about-page .film-watch-tabs button { border-radius: 24px; padding-inline: 18px; }
+.about-page .film-watch-tabs button[aria-selected="true"] { background: #eadde2; color: #513440; box-shadow: none; }
+.about-page .film-watch-provider { border-radius: 12px; padding-block: 20px; box-shadow: 0 5px 18px #573f4a05; }
+.about-page .film-watch-provider-name { color: #342931; }
+.about-page .film-gallery {
+    width: 100vw;
+    margin: 0 0 0 calc(50% - 50vw);
+    padding-block: clamp(44px, 5vw, 76px);
+    background: #141214;
+}
+.about-page .film-gallery::before { background: linear-gradient(90deg, #141214, transparent); }
+.about-page .film-gallery::after { background: linear-gradient(-90deg, #141214, transparent); }
+.about-page .film-gallery-heading { margin-bottom: 32px; }
+.about-page .film-gallery-heading > span { color: #efa58e; }
+.about-page .film-gallery-heading h2 { background: none; padding: 0; color: #f7f1eb; font: italic 400 clamp(38px, 4vw, 58px)/1.1 Georgia, serif; text-transform: none; }
+.about-page .film-gallery-heading h2::before,
+.about-page .film-gallery-heading h2::after { display: none; }
+.about-page .film-gallery-heading p { color: #c8bdc3; }
+.about-page .film-gallery-card { border-radius: 8px; border: 1px solid #ffffff20; box-shadow: 0 10px 24px #00000030; }
+@media (max-width: 800px) {
+    .about-page .film-story-copy { padding-left: 0; }
+    .about-page .film-story-credits { gap: 20px; }
+    .about-page .film-watch-tabs button { padding-inline: 10px; }
+    .about-page .film-watch-art { max-width: 280px; }
+}
+/* Dark story spread with readable synopsis and concise film credits. */
+.about-page .film-story-heading h2 { color: #f7f1eb; }
+.about-page .film-story-heading h2 em,
+.about-page .film-story-eyebrow { color: #efa58e; }
+.about-page .film-story-eyebrow::before { background: #efa58e; }
+.about-page .film-story-meta { color: #c7bbc0; flex-wrap: wrap; }
+.about-page .film-story-meta span { color: #a77d8e; }
+.about-page .film-story-inner { align-items: start; }
+.about-page .film-story-copy > p { color: #c8bdc3; font-size: 15px; line-height: 1.85; }
+.about-page .film-story-copy > .film-story-lead { color: #f1e9e6; font-size: clamp(18px, 1.6vw, 23px); line-height: 1.65; margin-bottom: 16px; }
+.about-page .film-story-credits { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 24px 28px; border-color: #ffffff20; padding-top: 26px; }
+.about-page .film-story-credits dt { color: #d6a493; }
+.about-page .film-story-credits dd { color: #eee5e7; font-size: 14px; overflow-wrap: anywhere; }
+@media (max-width: 480px) {
+    .about-page .film-story-credits { grid-template-columns: 1fr; gap: 18px; }
+}
