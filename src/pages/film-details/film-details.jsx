@@ -113,11 +113,6 @@ function FilmWatchSection() {
             <small>Explore platforms for availability in your region.</small>
           </div>
         ))}
-        <div className="film-watch-synopsis">
-          <span>THE STORY</span>
-          <p>A young woman fights for justice against a system determined to silence her, in an unflinching story of courage and resilience.</p>
-          <div>SIYA <span>2022 / HINDI / DRAMA</span></div>
-        </div>
       </div>
     </section>
   );
@@ -182,133 +177,20 @@ export default function FilmDetailsPage({ onPlay, onExplore }) {
             </button>
           </div>
         </div>
-        <section
-          className={"masaan-review film-story-editorial"}
-          aria-labelledby={"siya-review-title"}
-        >
-          <div className={"masaan-review-intro"}>
-            <span>THE STORY BEHIND SIYA</span>
-            <h2 id={"siya-review-title"}>
-              A voice that <i>refuses to fade.</i>
-            </h2>
-            <p>
-              <b>Siya</b> is a Hindi realist crime drama about a young woman
-              fighting for justice against a system determined to silence her.
-              The film marks Manish Mundra’s directorial debut.
-            </p>
-         
-          </div>
-          <dl className={"masaan-facts"}>
-            <div>
-              <dt>Released in</dt>
-              <dd>2022 · Hindi</dd>
+        <section className="film-story-compact" aria-labelledby="siya-review-title">
+          <div className="film-story-inner">
+            <div className="film-story-heading">
+              <span className="film-story-eyebrow">THE STORY BEHIND SIYA</span>
+              <h2 id="siya-review-title">A voice that<br /><em>refuses to fade.</em></h2>
+              <p className="film-story-meta">2022 <span aria-hidden="true">/</span> Hindi <span aria-hidden="true">/</span> 110 min</p>
             </div>
-            <div>
-              <dt>Time in this story</dt>
-              <dd>~110 min</dd>
+            <div className="film-story-copy">
+              <p>A young woman finds the courage to stand up to a system determined to silence her. <strong>Siya</strong> is an unflinching story of justice, resilience and the power of a single voice.</p>
+              <dl className="film-story-credits">
+                <div><dt>Directed by</dt><dd>Manish Mundra</dd></div>
+                <div><dt>Starring</dt><dd>Pooja Pandey &amp; Vineet Kumar Singh</dd></div>
+              </dl>
             </div>
-            <div>
-              <dt>The world of the film</dt>
-              <dd>Realist crime drama</dd>
-            </div>
-            <div>
-              <dt>Directed by</dt>
-              <dd>Manish Mundra · Directorial debut</dd>
-            </div>
-            <div>
-              <dt>Written by</dt>
-              <dd>Manish Mundra · Haider Rizvi · Samah</dd>
-            </div>
-            <div>
-              <dt>On screen</dt>
-              <dd>16 September 2022 · ZEE5</dd>
-            </div>
-          </dl>
-          <div className={"masaan-review-grid"}>
-            <section>
-              <span>THE PEOPLE BEHIND THE PICTURE</span><h3>Made human.</h3>
-              <div className={"masaan-credit-list"}>
-                <p>
-                  <b>Pooja Pandey</b>Siya / Seeta · debut lead performance
-                </p>
-                <p>
-                  <b>Vineet Kumar Singh</b>Mahendar · lawyer and family friend
-                </p>
-                <p>
-                  <b>Ambrish Kumar Saxena</b>Cast
-                </p>
-                <p>
-                  <b>Rudra Chaudhary</b>Cast
-                </p>
-                <p>
-                  <b>Rohit Pathak</b>The MLA
-                </p>
-                <p>
-                  <b>Rafey Mehmood / Subhransu Das</b>Cinematography
-                </p>
-                <p>
-                  <b>Manendra Singh Lodhi</b>Editing
-                </p>
-                <p>
-                  <b>Rajarshi Sanyal / Neel Adhikari</b>Songs / original score
-                </p>
-              </div>
-            </section>
-            <section>
-              <span>ACROSS SCREENS &amp; BORDERS</span><h3>A story that travels.</h3>
-              <div className={"masaan-awards"}>
-                <p>
-                  <b>International Film Festival of India</b>IFFI selection
-                </p>
-                <p>
-                  <b>New York Indian Film Festival</b>Official selection
-                </p>
-                <p>
-                  <b>UK Asian Film Festival</b>Official selection
-                </p>
-                <p>
-                  <b>Ottawa / Chicago / Melbourne</b>Indian and South Asian film festivals
-                </p>
-              </div>
-            </section>
-          </div>
-        
-          <div className={"masaan-links"}>
-            <span>READ THE REVIEWS</span>
-            <a
-              href={
-                "https://en.wikipedia.org/wiki/Siya_(film)"
-              }
-              target={"_blank"}
-              rel={"noreferrer"}
-            >
-              Wikipedia ↗
-            </a>
-            <a
-              href={
-                "https://www.drishyamfilms.com/films/siya/"
-              }
-              target={"_blank"}
-              rel={"noreferrer"}
-            >
-              Drishyam Films ↗
-            </a>
-            <a
-              href={
-                "https://www.cineblues.com/bollywood-movie-review/siya-pooja-pandey-vineet-kumar-singh-manish-mundra"
-              }
-              target={"_blank"}
-              rel={"noreferrer"}
-            >
-              Cineblues ↗
-            </a>
-            <a
-              href={"https://www.outlookindia.com/art-entertainment/-siya-movie-review-manish-mundra-plays-safe-with-a-hard-hitting-story-on-rape-survivors-pooja-pandey-vineet-kumar-singh-movie_reviews-225219"}
-              target={"_blank"}
-              rel={"noreferrer"}
-            >
-              Outlook India ↗
-            </a>
           </div>
         </section>
         <FilmWatchSection />
