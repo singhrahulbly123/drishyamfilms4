@@ -1,7 +1,7 @@
 import { useState } from "react";
 import siyaFeatureVideo from "../../asstes/videos/Siya_1.mp4";
 import siyaPoster from "../../asstes/images/siya-poster.jpg";
-import siyaPoster1 from "../../asstes/images/siya-poster1.jpg";
+
 const Arrow = () => <span className={"arrow"}>→</span>;
 const siyaGalleryImages = import.meta.glob("../../asstes/images/siya/*.jpg", {
   eager: true,
@@ -140,11 +140,6 @@ export default function FilmDetailsPage({ onPlay, onExplore }) {
           />
           <div className={"film-details-banner-wash"} aria-hidden={"true"} />
           <div className={"film-details-banner-copy"}>
-            <img
-              className={"film-details-banner-poster"}
-              src={siyaPoster1}
-              alt={"Siya film poster"}
-            />
             <p>DRISHYAM FILMS PRESENTS</p>
             <h1>SIYA</h1>
             <span>A STORY OF COURAGE AND RESISTANCE</span>
@@ -153,10 +148,6 @@ export default function FilmDetailsPage({ onPlay, onExplore }) {
               <li>HINDI</li>
               <li>REALIST CRIME DRAMA</li>
             </ul>
-            <p className={"film-details-banner-summary"}>
-              A young woman fights for justice against a system determined to
-              silence her, in an unflinching story of courage and resilience.
-            </p>
           </div>
           <div className={"film-details-banner-credit"}>
             <span>DIRECTED BY</span>
@@ -192,13 +183,13 @@ export default function FilmDetailsPage({ onPlay, onExplore }) {
           </div>
         </div>
         <section
-          className={"masaan-review"}
+          className={"masaan-review film-story-editorial"}
           aria-labelledby={"siya-review-title"}
         >
           <div className={"masaan-review-intro"}>
-            <span>FILM DETAILS &amp; PREMISE</span>
+            <span>THE STORY BEHIND SIYA</span>
             <h2 id={"siya-review-title"}>
-              Siya <i>(2022)</i>
+              A voice that <i>refuses to fade.</i>
             </h2>
             <p>
               <b>Siya</b> is a Hindi realist crime drama about a young woman
@@ -209,33 +200,33 @@ export default function FilmDetailsPage({ onPlay, onExplore }) {
           </div>
           <dl className={"masaan-facts"}>
             <div>
-              <dt>YEAR / LANGUAGE</dt>
+              <dt>Released in</dt>
               <dd>2022 · Hindi</dd>
             </div>
             <div>
-              <dt>RUNTIME</dt>
+              <dt>Time in this story</dt>
               <dd>~110 min</dd>
             </div>
             <div>
-              <dt>GENRE</dt>
+              <dt>The world of the film</dt>
               <dd>Realist crime drama</dd>
             </div>
             <div>
-              <dt>DIRECTOR</dt>
+              <dt>Directed by</dt>
               <dd>Manish Mundra · Directorial debut</dd>
             </div>
             <div>
-              <dt>WRITERS</dt>
+              <dt>Written by</dt>
               <dd>Manish Mundra · Haider Rizvi · Samah</dd>
             </div>
             <div>
-              <dt>RELEASE / PLATFORM</dt>
+              <dt>On screen</dt>
               <dd>16 September 2022 · ZEE5</dd>
             </div>
           </dl>
           <div className={"masaan-review-grid"}>
             <section>
-              <span>CAST &amp; CREW</span>
+              <span>THE PEOPLE BEHIND THE PICTURE</span><h3>Made human.</h3>
               <div className={"masaan-credit-list"}>
                 <p>
                   <b>Pooja Pandey</b>Siya / Seeta · debut lead performance
@@ -264,7 +255,7 @@ export default function FilmDetailsPage({ onPlay, onExplore }) {
               </div>
             </section>
             <section>
-              <span>PREMIERE &amp; FESTIVAL JOURNEY</span>
+              <span>ACROSS SCREENS &amp; BORDERS</span><h3>A story that travels.</h3>
               <div className={"masaan-awards"}>
                 <p>
                   <b>International Film Festival of India</b>IFFI selection

@@ -1,9 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import FilmDetailsPage from './pages/film-details/film-details';
+import AboutDrishyamPage from './pages/about-drishyam/AboutDrishyam';
+import MeetOurTeamPage from './pages/meet-our-team/MeetOurTeam';
+import TeamDetailPage from './pages/team-detail/TeamDetail';
+import FromFounderPage from './pages/from-founder/FromFounder';
+import SiteHeader from './components/SiteHeader';
+import SiteFooter from './components/SiteFooter';
 import "./styles.css";
-import whiteLogo from './asstes/logo/white-logo.svg';
-import pinkLogo from './asstes/logo/pink.png';
+import blogImage1 from './asstes/blog/1.png';
+import blogImage2 from './asstes/blog/2.png';
+import blogImage3 from './asstes/blog/3.png';
 import masaanCatalogVideo from './asstes/videos/Masaan_1.mp4';
 import dhanakCatalogVideo from './asstes/videos/Dhanak_1.mp4';
 import newtonCatalogVideo from './asstes/videos/Newton_4.mp4';
@@ -89,10 +96,8 @@ function App() {
   const [dark, setDark] = useState(true),
     [active, setActive] = useState(0),
     [modal, setModal] = useState(null),
-    [menu, setMenu] = useState(false),
-    [logoHovered, setLogoHovered] = useState(false),
-    [footerLogoHovered, setFooterLogoHovered] = useState(false),
-    [isAboutPage, setIsAboutPage] = useState(() => window.location.pathname === '/film-details'),
+    [currentPath, setCurrentPath] = useState(() => window.location.pathname),
+    [routeVersion, setRouteVersion] = useState(0),
     [premiereOpen, setPremiereOpen] = useState(false),
     [catalogFilm, setCatalogFilm] = useState(0),
     [catalogProgress, setCatalogProgress] = useState(0);
@@ -159,7 +164,7 @@ function App() {
   useEffect(() => {
     const svgNamespace = 'http://www.w3.org/2000/svg';
     const addTicketHoverSvg = (button) => {
-      if (button.matches('.brand, .menu-button, .film-watch-tabs button, .side-top > button, .side-links button:not(.side-ticket), .modal-close, .video-modal-close, .premiere-play, .slide-tabs button')) return;
+      if (button.matches('.brand, .menu-button, .film-watch-tabs button, .side-top > button, .side-links button:not(.side-ticket), .modal-close, .video-modal-close, .premiere-play, .slide-tabs button, .team-profile-next, .team-profile-back, .founder-premium-next, .about-studio-next')) return;
       button.classList.add('ticket-button');
       if (button.querySelector(':scope > .ticket-default-svg')) return;
       const createTicketSvg = (className, outlineStroke, dividerStroke, outlineData, dividerData) => {
@@ -197,7 +202,11 @@ function App() {
     return () => observer.disconnect();
   }, []);
   useEffect(() => {
-    const syncPage = () => setIsAboutPage(window.location.pathname === '/film-details');
+    const syncPage = () => {
+      setCurrentPath(window.location.pathname);
+      setRouteVersion((value) => value + 1);
+      window.scrollTo({ top: 0 });
+    };
     window.addEventListener('popstate', syncPage);
     return () => window.removeEventListener('popstate', syncPage);
   }, []);
@@ -246,7 +255,7 @@ function App() {
     if (!overlay) {
       overlay = document.createElement('div');
       overlay.className = 'catalog-siena-overlay';
-      ['award', 'copy', 'acclaim'].forEach((name) => {
+      ['copy', 'acclaim'].forEach((name) => {
         const element = document.createElement('div');
         element.className = 'siena-' + name;
         overlay.append(element);
@@ -255,13 +264,13 @@ function App() {
     }
     const details = filmDetails[catalogFilm];
     const film = films[catalogFilm];
-    const award = overlay.querySelector('.siena-award');
+
     const copy = overlay.querySelector('.siena-copy');
     const acclaim = overlay.querySelector('.siena-acclaim');
-    award.textContent = details.year + '\n' + details.award;
+
     copy.replaceChildren();
-    [film.genre.toUpperCase(), film.title.toUpperCase(), 'DIRECTOR                       ' + details.director, 'YEAR                               ' + details.year, 'CATEGORY                         ' + film.genre].forEach((value, index) => {
-      const element = document.createElement(index === 1 ? 'h2' : 'p');
+    [film.title.toUpperCase(), 'DIRECTOR                       ' + details.director].forEach((value, index) => {
+      const element = document.createElement(index === 0 ? 'h2' : 'p');
       element.textContent = value;
       copy.append(element);
     });
@@ -287,33 +296,33 @@ function App() {
     details.acclaim.forEach((quote) => {
       const item = document.createElement('div');
       const stars = document.createElement('span');
-      const label = document.createElement('small');
+
       const text = document.createElement('strong');
       stars.textContent = '★★★★★';
-      label.textContent = 'CRITICAL ACCLAIM';
+
       text.textContent = quote;
-      item.append(stars, label, text);
+      item.append(stars, text);
       acclaim.append(item);
     });
     overlay.classList.remove('is-visible');
     const animationFrame = requestAnimationFrame(() => overlay.classList.add('is-visible'));
     return () => cancelAnimationFrame(animationFrame);
   }, [catalogFilm]);
+  const navigate = (target) => {
+    const url = new URL(target, window.location.origin);
+    window.history.pushState({}, '', url.pathname + url.search + url.hash);
+    setCurrentPath(url.pathname);
+    setRouteVersion((value) => value + 1);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (url.hash) requestAnimationFrame(() => document.querySelector(url.hash)?.scrollIntoView({ behavior: 'smooth' }));
+  };
   const scroll = (id) => {
-    if (id === '#film-details') {
-      window.history.pushState({}, '', '/film-details');
-      setIsAboutPage(true);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      return;
-    }
-    if (isAboutPage) {
-      window.history.pushState({}, '', '/');
-      setIsAboutPage(false);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      return;
-    }
+    if (id === '#film-details') return navigate('/film-details');
+    if (currentPath !== '/') return navigate('/' + id);
     document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' });
   };
+  const isFilmDetails = currentPath === '/film-details';
+  const isStandaloneAbout = ['/about-drishyam', '/from-founder', '/meet-our-team', '/team-detail'].includes(currentPath);
   const hero = slides[active];
   const activeFilm = films[catalogFilm];
   const activeFilmDetails = filmDetails[catalogFilm];
@@ -341,7 +350,9 @@ function App() {
     form.reset();
   };
   return (
-    <main className={isAboutPage ? 'about-page' : ''}>
+    <main className={isFilmDetails ? 'about-page' : isStandaloneAbout ? 'standalone-about-page' : ''}>
+      <SiteHeader onNavigate={navigate} currentPath={currentPath} />
+      {false && (
       <header className="site-header">
         <button className="brand" onClick={() => scroll("#top")} onMouseEnter={() => setLogoHovered(true)} onMouseLeave={() => setLogoHovered(false)} onFocus={() => setLogoHovered(true)} onBlur={() => setLogoHovered(false)}>
           <img src={logoHovered ? pinkLogo : whiteLogo} alt="Drishyam Films" />
@@ -432,7 +443,7 @@ function App() {
             </div>
           </div>
         </aside>
-      </header>
+      </header>)}
       <section id="top" className="hero">
         <video
           key={sliderVideos[active]}
@@ -486,7 +497,7 @@ function App() {
           </p>
           <p>
            The studio has built an international presence through landmark releases including Ankhon Dekhi, Masaan, Dhanak, Waiting, and Newton—which won two National Film Awards and represented India at the 90th Academy Awards.
-Expanding seamlessly across theatrical and streaming spaces, recent titles like Love Hostel and Siya continue this legacy. Looking forward, Drishyam remains dedicated to discovering bold directorial voices, expanding into international co-productions, and shaping cinema that endures.
+Looking forward, Drishyam remains dedicated to discovering bold directorial voices, expanding into international co-productions, and shaping cinema that endures.
           </p>
           <button onClick={() => scroll("#films")} className="discover ticket-button">
             <span className="ticket-label">EXPLORE</span> <Arrow />
@@ -529,6 +540,10 @@ Expanding seamlessly across theatrical and streaming spaces, recent titles like 
       </section>
 
       <FilmDetailsPage onPlay={() => setModal({ title: 'Siya', video: siyaCatalogVideo })} onExplore={() => scroll('#films')} />
+      {currentPath === '/about-drishyam' && <AboutDrishyamPage key={routeVersion} onNavigate={navigate} />}
+      {currentPath === '/from-founder' && <FromFounderPage key={routeVersion} onNavigate={navigate} />}
+      {currentPath === '/meet-our-team' && <MeetOurTeamPage key={routeVersion} onNavigate={navigate} />}
+      {currentPath === '/team-detail' && <TeamDetailPage key={routeVersion} onNavigate={navigate} />}
 
       <section
         id='contact'
@@ -598,7 +613,7 @@ Let's explore the possibility of creating something meaningful together.
         <div className="journal-grid">
           <article>
             <img
-              src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=900&q=85"
+              src={blogImage1}
               alt=""
             />
             <span>STUDIO NOTES / 2026</span>
@@ -609,7 +624,7 @@ Let's explore the possibility of creating something meaningful together.
           </article>
           <article>
             <img
-              src="https://images.unsplash.com/photo-1519791883288-dc8bd696e667?auto=format&fit=crop&w=900&q=85"
+              src={blogImage2}
               alt=""
             />
             <span>FESTIVALS / 2026</span>
@@ -620,7 +635,7 @@ Let's explore the possibility of creating something meaningful together.
           </article>
           <article>
             <img
-              src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?auto=format&fit=crop&w=900&q=85"
+              src={blogImage3}
               alt=""
             />
             <span>CONVERSATIONS / 2026</span>
@@ -664,7 +679,7 @@ Let's explore the possibility of creating something meaningful together.
           </small>
         </div>
       </section>
-      <footer className="cinema-footer">
+      {false && <footer className="cinema-footer">
         <div className="footer-top">
           <div className="footer-brand footer-logo" onMouseEnter={() => setFooterLogoHovered(true)} onMouseLeave={() => setFooterLogoHovered(false)}>
             <img src={footerLogoHovered ? pinkLogo : whiteLogo} alt="Drishyam Films" />
@@ -705,7 +720,8 @@ Let's explore the possibility of creating something meaningful together.
           <p></p>
           <p>SCROLL TO BEGIN &#8593;</p>
         </div>
-      </footer>
+      </footer>}
+      <SiteFooter onNavigate={navigate} />
       {premiereOpen && (
         <div
           className={'video-modal'}
