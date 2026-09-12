@@ -7,6 +7,8 @@ import TeamDetailPage from './pages/team-detail/TeamDetail';
 import FromFounderPage from './pages/from-founder/FromFounder';
 import SiteHeader from './components/SiteHeader';
 import SiteFooter from './components/SiteFooter';
+import BlogPages from './pages/blog/BlogPages';
+import ContactUs from './pages/contact/ContactUs';
 import "./styles.css";
 import blogImage1 from './asstes/blog/1.png';
 import blogImage2 from './asstes/blog/2.png';
@@ -164,7 +166,7 @@ function App() {
   useEffect(() => {
     const svgNamespace = 'http://www.w3.org/2000/svg';
     const addTicketHoverSvg = (button) => {
-      if (button.matches('.brand, .menu-button, .film-watch-tabs button, .side-top > button, .side-links button:not(.side-ticket), .modal-close, .video-modal-close, .premiere-play, .slide-tabs button, .team-profile-next, .team-profile-back, .founder-premium-next, .about-studio-next')) return;
+      if (button.closest('.journal-page, .contact-page') || button.matches('.brand, .menu-button, .film-watch-tabs button, .side-top > button, .side-links button:not(.side-ticket), .modal-close, .video-modal-close, .premiere-play, .slide-tabs button, .team-profile-next, .team-profile-back, .founder-premium-next, .about-studio-next')) return;
       button.classList.add('ticket-button');
       if (button.querySelector(':scope > .ticket-default-svg')) return;
       const createTicketSvg = (className, outlineStroke, dividerStroke, outlineData, dividerData) => {
@@ -240,14 +242,14 @@ function App() {
     frame.addEventListener('pointerdown', onDown);
     frame.addEventListener('pointerup', onUp);
     return () => { frame.removeEventListener('pointerdown', onDown); frame.removeEventListener('pointerup', onUp); };
-  }, [catalogFilm]);
+  }, [catalogFilm, currentPath]);
   useEffect(() => {
     const frame = document.querySelector('.catalog-frame');
     if (!frame) return;
     frame.classList.remove('is-changing');
     const animationFrame = requestAnimationFrame(() => frame.classList.add('is-changing'));
     return () => cancelAnimationFrame(animationFrame);
-  }, [catalogFilm]);
+  }, [catalogFilm, currentPath]);
   useEffect(() => {
     const frame = document.querySelector('.catalog-frame');
     if (!frame) return;
@@ -307,7 +309,7 @@ function App() {
     overlay.classList.remove('is-visible');
     const animationFrame = requestAnimationFrame(() => overlay.classList.add('is-visible'));
     return () => cancelAnimationFrame(animationFrame);
-  }, [catalogFilm]);
+  }, [catalogFilm, currentPath]);
   const navigate = (target) => {
     const url = new URL(target, window.location.origin);
     window.history.pushState({}, '', url.pathname + url.search + url.hash);
@@ -321,6 +323,8 @@ function App() {
     if (currentPath !== '/') return navigate('/' + id);
     document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' });
   };
+  const isContact = ['/contact', '/contact-us'].includes(currentPath.replace(/\/$/, ''));
+  const isBlog = currentPath === '/blog' || currentPath === '/blog-details' || currentPath.startsWith('/blog/');
   const isFilmDetails = currentPath === '/film-details';
   const isStandaloneAbout = ['/about-drishyam', '/from-founder', '/meet-our-team', '/team-detail'].includes(currentPath);
   const hero = slides[active];
@@ -352,6 +356,7 @@ function App() {
   return (
     <main className={isFilmDetails ? 'about-page' : isStandaloneAbout ? 'standalone-about-page' : ''}>
       <SiteHeader onNavigate={navigate} currentPath={currentPath} />
+      {isContact ? <ContactUs key={routeVersion} onNavigate={navigate} /> : isBlog ? <BlogPages key={routeVersion} currentPath={currentPath} onNavigate={navigate} /> : <>
       {false && (
       <header className="site-header">
         <button className="brand" onClick={() => scroll("#top")} onMouseEnter={() => setLogoHovered(true)} onMouseLeave={() => setLogoHovered(false)} onFocus={() => setLogoHovered(true)} onBlur={() => setLogoHovered(false)}>
@@ -606,7 +611,7 @@ Let's explore the possibility of creating something meaningful together.
             <br />
            <em> behind the picture.</em>
           </h2>
-          <button type="button" className="contact-submit ticket-button">
+          <button type="button" className="contact-submit ticket-button" onClick={() => navigate('/blog')}>
             ALL STORIES <Arrow />
           </button>
         </div>
@@ -618,7 +623,7 @@ Let's explore the possibility of creating something meaningful together.
             />
             <span>STUDIO NOTES / 2026</span>
             <h3>Where a story begins</h3>
-            <a href="#journal">
+            <a href="/blog/where-a-story-begins" onClick={(event) => { event.preventDefault(); navigate('/blog/where-a-story-begins'); }}>
               READ MORE <Arrow />
             </a>
           </article>
@@ -629,7 +634,7 @@ Let's explore the possibility of creating something meaningful together.
             />
             <span>FESTIVALS / 2026</span>
             <h3>Taking stories across borders</h3>
-            <a href="#journal">
+            <a href="/blog/taking-stories-across-borders" onClick={(event) => { event.preventDefault(); navigate('/blog/taking-stories-across-borders'); }}>
               READ MORE <Arrow />
             </a>
           </article>
@@ -640,7 +645,7 @@ Let's explore the possibility of creating something meaningful together.
             />
             <span>CONVERSATIONS / 2026</span>
             <h3>The next generation of filmmakers</h3>
-            <a href="#journal">
+            <a href="/blog/the-next-generation-of-filmmakers" onClick={(event) => { event.preventDefault(); navigate('/blog/the-next-generation-of-filmmakers'); }}>
               READ MORE <Arrow />
             </a>
           </article>
@@ -721,6 +726,7 @@ Let's explore the possibility of creating something meaningful together.
           <p>SCROLL TO BEGIN &#8593;</p>
         </div>
       </footer>}
+      </>}
       <SiteFooter onNavigate={navigate} />
       {premiereOpen && (
         <div

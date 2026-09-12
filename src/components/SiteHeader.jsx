@@ -64,7 +64,8 @@ export default function SiteHeader({ onNavigate, currentPath }) {
             </div>
           </div>
 
-          <button onClick={() => go("/#contact")}>Let&apos;s connect <b>05</b></button>
+          <button onClick={() => go("/blog")} aria-current={currentPath.startsWith('/blog') ? 'page' : undefined}>The Journal <b>05</b></button>
+          <button onClick={() => go("/contact-us")}>Let&apos;s connect <b>06</b></button>
         </div>
         <div className="side-contact">
           <p>START A CONVERSATION</p>

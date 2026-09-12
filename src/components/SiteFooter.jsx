@@ -29,6 +29,8 @@ export default function SiteFooter({ onNavigate }) {
           <a href="/#films" onClick={(e) => link(e, "/#films")}>Films &amp; Series</a>
           <a href="/about-drishyam" onClick={(e) => link(e, "/about-drishyam")}>About Drishyam</a>
           <a href="/meet-our-team" onClick={(e) => link(e, "/meet-our-team")}>Our Team</a>
+          <a href="/blog" onClick={(e) => link(e, "/blog")}>The Journal</a>
+          <a href="/contact-us" onClick={(e) => link(e, "/contact-us")}>Contact Us</a>
         </div>
         <div>
           <p className="footer-label">CONNECT</p>
@@ -38,7 +40,7 @@ export default function SiteFooter({ onNavigate }) {
         </div>
         <div className="footer-cta">
           <p className="footer-label">A STORY TO TELL?</p>
-          <a href="mailto:hello@drishyamfilms.com">Start a conversation <span>→</span></a>
+          <a href="/contact-us" onClick={(e) => link(e, "/contact-us")}>Start a conversation <span>→</span></a>
         </div>
       </div>
       <div className="footer-bottom"><p>&copy; 2026 DRISHYAM FILMS. ALL RIGHTS RESERVED.</p><p /><button type="button" className="footer-scroll-ticket" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}><span>SCROLL TO BEGIN</span><i aria-hidden="true">&uarr;</i></button></div>
