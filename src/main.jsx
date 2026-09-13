@@ -9,6 +9,7 @@ import SiteHeader from './components/SiteHeader';
 import SiteFooter from './components/SiteFooter';
 import BlogPages from './pages/blog/BlogPages';
 import ContactUs from './pages/contact/ContactUs';
+import ArchivePages from './pages/archive/ArchivePages';
 import "./styles.css";
 import blogImage1 from './asstes/blog/1.png';
 import blogImage2 from './asstes/blog/2.png';
@@ -22,7 +23,7 @@ import ourStoriesImage from './asstes/images/maxres1.jpg';
 import contactBackgroundImage from './asstes/images/maxres1.jpg';
 
 const sliderVideos = [masaanCatalogVideo, siyaCatalogVideo, newtonCatalogVideo];
-const catalogVideos = [masaanCatalogVideo, dhanakCatalogVideo, newtonCatalogVideo, siyaCatalogVideo];
+const catalogVideos = [siyaCatalogVideo, masaanCatalogVideo, dhanakCatalogVideo, newtonCatalogVideo];
 
 const slides = [
   {
@@ -39,7 +40,7 @@ const slides = [
     image:
       "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=2200&q=90",
   },
-   {
+  {
     title: "NEWTON",
     kicker: "A STORY OF CONSCIENCE",
     date: "AWARD-WINNING CINEMA",
@@ -48,6 +49,12 @@ const slides = [
   },
 ];
 const films = [
+  {
+    title: "Siya",
+    genre: "Realist Crime Drama",
+    image:
+      "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1000&q=88",
+  },
   {
     year: '2022',
     director: 'Manish Mundra',
@@ -69,12 +76,6 @@ const films = [
     image:
       "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1000&q=88",
   },
-  {
-    title: "Siya",
-    genre: "Realist Crime Drama",
-    image:
-      "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1000&q=88",
-  },
 ];
 const Arrow = () => <span className={'arrow'} aria-hidden={true}><svg xmlns={'http://www.w3.org/2000/svg'} fill={'none'} viewBox={'0 0 11 10'}><path fill={'currentColor'} d={'M4.481.005a6.65 6.65 0 0 1 6.46 4.659c.078.229.08.479-.003.706C10.302 7.105 8.318 10 4.48 10V8.39c.941.127 2.922-.257 4.442-2.603H0V4.208h8.938c-.756-1.229-2.216-2.78-4.457-2.78V.006Z'} /></svg></span>;
 const Play = () => <span className="play">&#9654;</span>;
@@ -88,10 +89,10 @@ const SocialIcon = ({ platform }) => {
   return <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="4" /><path className="social-icon-play" d="m10 9 5 3-5 3Z" /></svg>;
 };
 const filmDetails = [
+  { year: '2022', director: 'Manish Mundra', award: 'ZEE5\nDIGITAL PREMIERE', acclaim: ['IFFI Selection', 'New York Indian Film Festival', 'UK Asian Film Festival'] },
   { year: '2015', director: 'Neeraj Ghaywan', award: 'FIPRESCI PRIZE\nCANNES 2015', acclaim: ['Cannes 2015', 'FIPRESCI Prize', 'Prix de l Avenir'] },
   { year: '2016', director: 'Nagesh Kukunoor', award: 'NATIONAL FILM AWARD\nBEST CHILDRENS FILM', acclaim: ['Crystal Bear', 'Grand Prix', 'Berlinale 2015'] },
   { year: '2017', director: 'Amit V. Masurkar', award: 'NATIONAL FILM AWARD\nBEST HINDI FILM', acclaim: ['India Official Entry', 'CICAE Art Cinema Award', 'Berlinale 2017'] },
-  { year: '2022', director: 'Manish Mundra', award: 'ZEE5\nDIGITAL PREMIERE', acclaim: ['IFFI Selection', 'New York Indian Film Festival', 'UK Asian Film Festival'] },
 ];
 
 function App() {
@@ -166,7 +167,7 @@ function App() {
   useEffect(() => {
     const svgNamespace = 'http://www.w3.org/2000/svg';
     const addTicketHoverSvg = (button) => {
-      if (button.closest('.journal-page, .contact-page') || button.matches('.brand, .menu-button, .film-watch-tabs button, .side-top > button, .side-links button:not(.side-ticket), .modal-close, .video-modal-close, .premiere-play, .slide-tabs button, .team-profile-next, .team-profile-back, .founder-premium-next, .about-studio-next')) return;
+      if (button.closest('.archive-page, .journal-page, .contact-page') || button.matches('.brand, .menu-button, .film-watch-tabs button, .side-top > button, .side-links button:not(.side-ticket), .modal-close, .video-modal-close, .premiere-play, .slide-tabs button, .team-profile-next, .team-profile-back, .founder-premium-next, .about-studio-next')) return;
       button.classList.add('ticket-button');
       if (button.querySelector(':scope > .ticket-default-svg')) return;
       const createTicketSvg = (className, outlineStroke, dividerStroke, outlineData, dividerData) => {
@@ -323,6 +324,8 @@ function App() {
     if (currentPath !== '/') return navigate('/' + id);
     document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' });
   };
+  const archivePath = currentPath.replace(/\/$/, '');
+  const isArchive = ['/awards-gallery', '/awards', '/award', '/gallery'].includes(archivePath);
   const isContact = ['/contact', '/contact-us'].includes(currentPath.replace(/\/$/, ''));
   const isBlog = currentPath === '/blog' || currentPath === '/blog-details' || currentPath.startsWith('/blog/');
   const isFilmDetails = currentPath === '/film-details';
@@ -354,9 +357,17 @@ function App() {
     form.reset();
   };
   return (
-    <main className={isFilmDetails ? 'about-page' : isStandaloneAbout ? 'standalone-about-page' : ''}>
+    <main className={isFilmDetails ? 'about-page' : isStandaloneAbout ? 'standalone-about-page' : currentPath === '/' ? 'home-page' : ''}>
+      <svg width="0" height="0" aria-hidden="true" focusable="false" style={{ position: 'absolute', pointerEvents: 'none' }}>
+        <defs>
+          <linearGradient id="brand-ticket-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#f68e76" />
+            <stop offset="100%" stopColor="#9b657c" />
+          </linearGradient>
+        </defs>
+      </svg>
       <SiteHeader onNavigate={navigate} currentPath={currentPath} />
-      {isContact ? <ContactUs key={routeVersion} onNavigate={navigate} /> : isBlog ? <BlogPages key={routeVersion} currentPath={currentPath} onNavigate={navigate} /> : <>
+      {isArchive ? <ArchivePages onNavigate={navigate} /> : isContact ? <ContactUs key={routeVersion} onNavigate={navigate} /> : isBlog ? <BlogPages key={routeVersion} currentPath={currentPath} onNavigate={navigate} /> : <>
       {false && (
       <header className="site-header">
         <button className="brand" onClick={() => scroll("#top")} onMouseEnter={() => setLogoHovered(true)} onMouseLeave={() => setLogoHovered(false)} onFocus={() => setLogoHovered(true)} onBlur={() => setLogoHovered(false)}>
@@ -593,7 +604,7 @@ Let's explore the possibility of creating something meaningful together.
               </label>
               <label className='block sm:col-span-2'>
                 <span className='mb-2 block font-mono text-[10px] font-bold tracking-[.14em] text-white/65'>ATTACH DOCUMENT *</span>
-                <input className='block w-full border border-dashed border-white/30 bg-transparent px-4 py-3 text-xs text-white/70 file:mr-4 file:border-0 file:bg-[#e97f6f] file:px-3 file:py-2 file:font-mono file:text-[10px] file:font-bold file:tracking-[.1em] file:text-[#171114]' name='attachment' type='file' accept='.pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document' required />
+                <input className='block w-full border border-dashed border-white/30 bg-transparent px-4 py-3 text-xs text-white/70 file:mr-4 file:border-0 brand-file-input file:px-3 file:py-2 file:font-mono file:text-[10px] file:font-bold file:tracking-[.1em] file:text-[#171114]' name='attachment' type='file' accept='.pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document' required />
                 <span className='mt-2 block font-mono text-[9px] tracking-[.1em] text-white/40'>PDF, DOC OR DOCX · MAXIMUM 5 MB</span>
               </label>
             </div>

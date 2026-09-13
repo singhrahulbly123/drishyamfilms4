@@ -30,6 +30,7 @@ export default function SiteFooter({ onNavigate }) {
           <a href="/about-drishyam" onClick={(e) => link(e, "/about-drishyam")}>About Drishyam</a>
           <a href="/meet-our-team" onClick={(e) => link(e, "/meet-our-team")}>Our Team</a>
           <a href="/blog" onClick={(e) => link(e, "/blog")}>The Journal</a>
+          <a href="/awards-gallery" onClick={(e) => link(e, "/awards-gallery")}>Awards &amp; Gallery</a>
           <a href="/contact-us" onClick={(e) => link(e, "/contact-us")}>Contact Us</a>
         </div>
         <div>
