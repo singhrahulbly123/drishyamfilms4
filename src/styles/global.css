@@ -4344,7 +4344,7 @@ button.ticket-button:hover .ticket-hover-svg [data-verticaldash] {
     padding: clamp(40px, 0vw, 40px) 0 clamp(72px, 8vw, 112px);
     overflow: hidden;
     isolation: isolate;
-    background: linear-gradient(rgba(5, 5, 5, 0.72), rgba(5, 5, 5, 0.82)), radial-gradient( circle at 50% 0%, rgba(233, 127, 111, 0.16), transparent 36%), url("./asstes/images/channels4_banner.jpg") center / cover no-repeat;
+    background: linear-gradient(rgba(5, 5, 5, 0.72), rgba(5, 5, 5, 0.82)), radial-gradient( circle at 50% 0%, rgba(233, 127, 111, 0.16), transparent 36%), url("../assets/images/channels4_banner.jpg") center / cover no-repeat;
 }
 
 .film-gallery::before,
