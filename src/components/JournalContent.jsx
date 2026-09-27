@@ -4,7 +4,7 @@ import { postUrl } from "../data/blogData";
 export const JournalArrow = () => <span aria-hidden="true">↗</span>;
 export const readingTime = (post) =>
   `${Math.max(2, Math.ceil(post.sections.flat().join(" ").split(/\s+/).length / 200))} MIN READ`;
-export function StoryCard({ post, onNavigate, index }) {
+export function StoryCard({ post, onNavigate }) {
   return (
     <article className="j-card">
       <InternalLink
@@ -28,7 +28,6 @@ export function StoryCard({ post, onNavigate, index }) {
           <span>
             READ STORY <JournalArrow />
           </span>
-          <small>{String(index + 1).padStart(2, "0")}</small>
         </div>
       </InternalLink>
     </article>
@@ -38,11 +37,8 @@ export function StoryCard({ post, onNavigate, index }) {
 export function JournalClosing({ onNavigate }) {
   return (
     <section className="j-closing">
-      <p className="j-eyebrow">FROM THE PAGE TO THE SCREEN</p>
       <h2>
-        Some stories are read.
-        <br />
-        <em>Others are felt.</em>
+        Explore <em>our films.</em>
       </h2>
       <InternalLink
         to="/#films"

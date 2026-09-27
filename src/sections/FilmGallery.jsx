@@ -1,53 +1,33 @@
+import { useRef } from "react";
 import { galleryRows } from "../data/filmGallery";
 
-function GalleryCard({ item, duplicate }) {
-  return (
-    <figure
-      className={"film-gallery-card"}
-      aria-hidden={duplicate || undefined}
-    >
-      <img
-        src={item.poster}
-        alt={duplicate ? "" : item.alt}
-        loading={"lazy"}
-        decoding={"async"}
-      />
-      <figcaption>
-        <span>{item.detail}</span>
-        <b>{item.title}</b>
-      </figcaption>
-    </figure>
-  );
-}
+const images = galleryRows.flat();
 
 export default function FilmGallery() {
+  const stripRef = useRef(null);
+  const move = (direction) => {
+    const strip = stripRef.current;
+    if (!strip) return;
+    strip.scrollBy({
+      left: direction * strip.clientWidth * 0.8,
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
+    });
+  };
   return (
-    <section className={"film-gallery"} aria-labelledby={"film-gallery-title"}>
-      <div className={"film-gallery-heading"}>
-        <span>FRAMES FROM SIYA</span>
-        <h2 id={"film-gallery-title"}>Gallery</h2>
-        <p>Moments that live beyond the final cut.</p>
+    <section className="film-gallery film-gallery-single" aria-labelledby="film-gallery-title">
+      <div className="film-gallery-toolbar">
+        <h2 id="film-gallery-title">Gallery</h2>
+        <div className="film-gallery-controls" aria-label="Gallery controls">
+          <button type="button" aria-label="Previous images" aria-controls="siya-gallery-strip" onClick={() => move(-1)}>&larr;</button>
+          <button type="button" aria-label="Next images" aria-controls="siya-gallery-strip" onClick={() => move(1)}>&rarr;</button>
+        </div>
       </div>
-      <div className={"film-gallery-reels"}>
-        {galleryRows.map((row, rowIndex) => (
-          <div
-            className={`film-gallery-marquee film-gallery-marquee--${rowIndex === 0 ? "left" : "right"}`}
-            key={rowIndex}
-          >
-            <div className={"film-gallery-track"}>
-              {[false, true].map((duplicate) => (
-                <div className={"film-gallery-group"} key={String(duplicate)}>
-                  {row.map((item, itemIndex) => (
-                    <GalleryCard
-                      item={item}
-                      duplicate={duplicate}
-                      key={`${item.title}-${itemIndex}`}
-                    />
-                  ))}
-                </div>
-              ))}
-            </div>
-          </div>
+      <div id="siya-gallery-strip" className="film-gallery-strip" ref={stripRef}
+        tabIndex={0} role="region" aria-label="Siya film images, scroll horizontally">
+        {images.map((item) => (
+          <figure className="film-gallery-still" key={item.poster}>
+            <img src={item.poster} alt={item.alt} loading="lazy" decoding="async" />
+          </figure>
         ))}
       </div>
     </section>

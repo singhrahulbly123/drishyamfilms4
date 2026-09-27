@@ -34,11 +34,10 @@ export default function ContactEnquiryForm({ topic, setTopic }) {
   return (
     <form className="cu-form" onSubmit={prepareEmail}>
       <div className="cu-form-heading">
-        <h3>Tell us your story</h3>
-        <span className="cu-label">* REQUIRED</span>
+        <h3>Your enquiry</h3>
       </div>
       <fieldset>
-        <legend className="cu-label">WHAT BRINGS YOU HERE?</legend>
+        <legend className="cu-label">ENQUIRY TYPE</legend>
         <div className="cu-topics">
           {enquiryTopics.map((item) => (
             <label key={item} className={topic === item ? "is-selected" : ""}>

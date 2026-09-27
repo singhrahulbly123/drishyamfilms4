@@ -1,0 +1,46 @@
+/* Internal pages only. The homepage deliberately keeps its existing styling. */
+main:not(.home-page) .about-studio-intro {
+  grid-template-columns: minmax(0, 1fr);
+}
+main:not(.home-page) .about-studio-intro > div { width: min(100%, 1080px); }
+main:not(.home-page) .about-studio-intro h2 { max-width: 900px; }
+main:not(.home-page) .about-studio-process-list article { grid-template-columns: minmax(0, 1fr); gap: 0; }
+main:not(.home-page) .about-studio-principles > header { display: block; }
+main:not(.home-page) .about-studio-principles h2 { max-width: 850px; }
+main:not(.home-page) .about-studio-principles h3 { margin-top: 12px; }
+main:not(.home-page) .about-studio-principles article { min-height: 230px; padding-block: 36px; }
+main:not(.home-page) .about-studio-stats strong { font-size: clamp(40px, 5vw, 72px); }
+main:not(.home-page) .team-directory-heading { display: flex; justify-content: space-between; }
+main:not(.home-page) .team-directory-heading p { margin: 0; }
+main:not(.home-page) .team-culture h2 em { color: inherit; }
+main:not(.home-page) .cu-pathway-grid h3 { margin-top: 0; }
+main:not(.home-page) .j-contents nav > a { display: block; }
+main:not(.home-page) .ar-hero-body { padding-bottom: 45px; }
+
+/* Straightforward labels, without spaced-out all-caps micro-headings. */
+main:not(.home-page) :is(
+  .about-studio-overview-label, .about-studio-hero-copy > p,
+  .about-studio-overview-image > span, .about-studio-process-image > span,
+  .about-studio-stats span, .founder-premium-hero-copy > p,
+  .founder-premium-name > span, .founder-premium-location,
+  .about-hero-copy > p, .team-directory-heading p, .team-card-meta p,
+  .team-profile-role, .team-profile-banner-copy > p,
+  .cu-label, .cu-fields label > span, .j-eyebrow, .j-meta,
+  .ar-eyebrow, .ar-count, .ar-award-top, .ar-award-event,
+  .ar-festival-strip > span
+) { font-size: 12px; line-height: 1.6; letter-spacing: .025em; text-transform: none; }
+
+/* These shared components also appear on home, so restrict the visual cleanup. */
+main:not(.home-page) :is(
+  .side-links > button > b, .side-about-trigger > b, .side-about-submenu small,
+  .film-story-eyebrow, .film-watch-eyebrow, .film-gallery-heading > span,
+  .film-watch-edition
+) { display: none; }
+main:not(.home-page) .film-story-heading h2 { margin-top: 0; }
+
+@media (max-width: 600px) {
+  main:not(.home-page) .about-studio-intro { gap: 0; }
+  main:not(.home-page) .about-studio-principles article { min-height: 0; padding-block: 30px; }
+  main:not(.home-page) .about-studio-principles h3 { margin-top: 0; }
+  main:not(.home-page) .team-culture h2 { font-size: clamp(36px, 9vw, 54px); line-height: 1.12; }
+}

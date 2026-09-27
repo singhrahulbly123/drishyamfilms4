@@ -1,3 +1,5 @@
+import FilmTrailerSection from "../../sections/FilmTrailerSection";
+import siyaStill from "../../assets/images/siya/3.jpg";
 import FilmWatchSection from "../../sections/FilmWatchSection";
 import FilmGallery from "../../sections/FilmGallery";
 import siyaFeatureVideo from "../../assets/videos/Siya_1.mp4";
@@ -9,12 +11,13 @@ export default function FilmDetailsPage() {
         <div className={"film-details-banner"}>
           <video
             src={siyaFeatureVideo}
+            poster={siyaStill}
             autoPlay
             muted
             loop
             playsInline
-            preload={"metadata"}
-            aria-label={"Siya feature video"}
+            preload={"auto"}
+            aria-label={"Siya film excerpt, playing on a continuous loop"}
           />
           <div className={"film-details-banner-wash"} aria-hidden={"true"} />
           <div className={"film-details-banner-copy"}>
@@ -32,55 +35,18 @@ export default function FilmDetailsPage() {
             <b>MANISH MUNDRA</b>
           </div>
         </div>
-        <section
-          className="film-story-compact"
-          aria-labelledby="siya-review-title"
-        >
+        <section className="film-story-compact" aria-label="Siya story and credits">
           <div className="film-story-inner">
-            <div className="film-story-heading">
-              <span className="film-story-eyebrow">THE STORY BEHIND SIYA</span>
-              <h2 id="siya-review-title">
-                A voice that
-                <br />
-                <em>refuses to fade.</em>
-              </h2>
-              <p className="film-story-meta">
-                2022 <span aria-hidden="true">/</span> Hindi{" "}
-                <span aria-hidden="true">/</span> 110 min
-              </p>
-            </div>
-            <div className="film-story-copy">
-              <p className="film-story-lead">
-                <strong>Siya</strong> follows a young woman who chooses to fight
-                for justice against a system determined to silence her.
-              </p>
-              <p>
-                As she confronts powerful interests and the pressure to remain
-                silent, her pursuit of justice becomes a story of courage and
-                resilience. Manish Mundra's directorial debut places her voice
-                at the centre of this Hindi realist crime drama.
-              </p>
-              <dl className="film-story-credits">
-                <div>
-                  <dt>Directed by</dt>
-                  <dd>Manish Mundra</dd>
-                </div>
-                <div>
-                  <dt>Starring</dt>
-                  <dd>Pooja Pandey &amp; Vineet Kumar Singh</dd>
-                </div>
-                <div>
-                  <dt>Genre</dt>
-                  <dd>Realist crime drama</dd>
-                </div>
-                <div>
-                  <dt>Release</dt>
-                  <dd>16 September 2022</dd>
-                </div>
-              </dl>
-            </div>
+            <p className="film-logline">Siya follows a young woman who chooses to fight for justice against a system determined to silence her.</p>
+            <dl className="film-story-credits">
+              <div><dt>Directed by</dt><dd>Manish Mundra</dd></div>
+              <div><dt>Starring</dt><dd>Pooja Pandey &amp; Vineet Kumar Singh</dd></div>
+              <div><dt>Genre</dt><dd>Realist crime drama</dd></div>
+              <div><dt>Release</dt><dd>16 September 2022</dd></div>
+            </dl>
           </div>
         </section>
+        <FilmTrailerSection />
         <FilmWatchSection />
         <FilmGallery />
       </div>

@@ -58,23 +58,23 @@ export default function ArticlePage({ post, onNavigate }) {
         </p>
         <h1>
           {post.title}
-          <em>.</em>
         </h1>
         <p className="j-standfirst">{post.intro}</p>
         <div className="j-byline">
           <span className="j-author-mark">DF</span>
           <div>
             <strong>The Drishyam Journal</strong>
-            <span>Reflections on cinema &amp; the creative process</span>
+            <span>Writing about filmmaking</span>
           </div>
-          <span className="j-edition">A CLOSER LOOK / VOL. 01</span>
         </div>
       </header>
       <figure className="j-article-figure j-wrap">
-        <img src={post.image} alt={post.alt} fetchPriority="high" />
+        <div className="j-article-image">
+          <img src={post.image} alt={post.alt} fetchPriority="high" />
+        </div>
         <figcaption>
           <span>THE DRISHYAM JOURNAL</span>
-          <span>{post.category} / A different way of seeing</span>
+          <span>{post.category}</span>
         </figcaption>
       </figure>
       <div className="j-article-layout j-wrap">
@@ -83,13 +83,12 @@ export default function ArticlePage({ post, onNavigate }) {
           <nav aria-label="Article contents">
             {post.sections.map(([title], index) => (
               <a key={title} href={`#chapter-${index + 1}`}>
-                <span>0{index + 1}</span>
                 {title}
               </a>
             ))}
           </nav>
           <div className="j-share">
-            <p className="j-eyebrow">PASS THE STORY ON</p>
+            <p className="j-eyebrow">Share this article</p>
             <button type="button" onClick={copyLink}>
               Copy story link <Arrow />
             </button>
@@ -108,7 +107,6 @@ export default function ArticlePage({ post, onNavigate }) {
         >
           {post.sections.map(([title, ...paragraphs], index) => (
             <section id={`chapter-${index + 1}`} key={title}>
-              <p className="j-chapter">0{index + 1} /</p>
               <h2>{title}</h2>
               {paragraphs.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
@@ -122,17 +120,12 @@ export default function ArticlePage({ post, onNavigate }) {
               )}
             </section>
           ))}
-          <div className="j-article-end">
-            <span aria-hidden="true">✳</span>
-            <p>END OF STORY. START OF A CONVERSATION.</p>
-          </div>
           <div className="j-author-box">
             <span className="j-author-mark">DF</span>
             <div>
               <p className="j-eyebrow">THE DRISHYAM JOURNAL</p>
               <p>
-                A space for the ideas, people and craft behind meaningful
-                cinema.
+                Articles on writing, production, editing and sound.
               </p>
               <InternalLink to="/blog" onNavigate={onNavigate}>
                 More from the journal <Arrow />
@@ -144,9 +137,8 @@ export default function ArticlePage({ post, onNavigate }) {
       <section className="j-related j-wrap">
         <div className="j-section-heading">
           <div>
-            <p className="j-eyebrow">KEEP EXPLORING</p>
             <h2>
-              Another <em>perspective.</em>
+              More from <em>the Journal.</em>
             </h2>
           </div>
           <InternalLink

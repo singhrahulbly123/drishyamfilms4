@@ -23,21 +23,14 @@ export default function ContactUs({ onNavigate }) {
           fetchPriority="high"
         />
         <div className="about-hero-shade" />
-        <div className="about-hero-number">CONTACT / DRISHYAM FILMS</div>
         <div className="about-hero-copy">
           <p>CONTACT US</p>
           <h1>
-            Say hello.
-            <br />
-            <em>Start something.</em>
+            Get in <em>touch.</em>
           </h1>
           <span>
-            Every collaboration begins with a conversation. Tell us what you
-            have in mind.
+            For film enquiries, partnerships and press, contact our team below.
           </span>
-        </div>
-        <div className="about-scroll-cue">
-          <i /> SCROLL TO CONNECT
         </div>
       </section>
       <section
@@ -46,11 +39,8 @@ export default function ContactUs({ onNavigate }) {
         aria-labelledby="enquiry-title"
       >
         <div className="cu-intro">
-          <p className="cu-label">01 / LET’S CONNECT</p>
           <h2 id="enquiry-title">
-            A thought. An idea.
-            <br />
-            <em>A possibility.</em>
+            How can <em>we help?</em>
           </h2>
           <p>
             Have a film to talk about, a creative collaboration in mind or a
@@ -66,21 +56,13 @@ export default function ContactUs({ onNavigate }) {
               For film enquiries, partnerships, press and everything in between.
             </p>
           </div>
-          <div className="cu-note">
-            <span aria-hidden="true">✳</span>
-            <p>
-              Meaningful cinema starts with people coming together. This could
-              be the first frame.
-            </p>
-          </div>
         </div>
         <ContactEnquiryForm topic={topic} setTopic={setTopic} />
       </section>
       <section className="cu-pathways cu-wrap" aria-labelledby="pathways-title">
         <div className="cu-section-heading">
-          <p className="cu-label">02 / THE RIGHT CONVERSATION</p>
           <h2 id="pathways-title">
-            Many ways to <em>connect.</em>
+            Choose your <em>enquiry.</em>
           </h2>
         </div>
         <div className="cu-pathway-grid">
@@ -91,11 +73,10 @@ export default function ContactUs({ onNavigate }) {
                 href="#enquiry"
                 onClick={() => setTopic(selectedTopic)}
               >
-                <span className="cu-label">{number} /</span>
                 <h3>{title}</h3>
                 <p>{description}</p>
                 <span className="cu-pathway-link">
-                  LET’S TALK <b aria-hidden="true">↗</b>
+                  Enquire <b aria-hidden="true">↗</b>
                 </span>
               </a>
             ),
@@ -104,9 +85,8 @@ export default function ContactUs({ onNavigate }) {
       </section>
       <section className="cu-faq cu-wrap">
         <div>
-          <p className="cu-label">03 / BEFORE YOU WRITE</p>
           <h2>
-            A little <em>clarity.</em>
+            Before <em>you write.</em>
           </h2>
         </div>
         <div>
@@ -122,11 +102,8 @@ export default function ContactUs({ onNavigate }) {
         </div>
       </section>
       <section className="cu-closing">
-        <p className="cu-label">WHILE YOU’RE HERE</p>
         <h2>
-          Get to know
-          <br />
-          <em>the stories we tell.</em>
+          Browse <em>our films.</em>
         </h2>
         <a
           href="/#films"

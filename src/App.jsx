@@ -1,13 +1,11 @@
 import { archivePaths, aboutPaths } from "./data/siteData";
 import useNavigation from "./hooks/useNavigation";
-import useFilmCatalog from "./hooks/useFilmCatalog";
 import FilmCatalog from "./sections/FilmCatalog";
 import JournalSection from "./sections/JournalSection";
 import useTicketSound from "./hooks/useTicketSound";
 import VideoDialogs from "./components/VideoDialogs";
 import HeroSection from "./sections/HeroSection";
 import ContactSection from "./sections/ContactSection";
-import NewsletterSection from "./sections/NewsletterSection";
 import OurStoriesSection from "./sections/OurStoriesSection";
 import { useEffect, useState } from "react";
 
@@ -28,7 +26,6 @@ export default function App() {
   const [premiereOpen, setPremiereOpen] = useState(false);
   const [contactStatus, setContactStatus] = useState("");
   const { currentPath, routeVersion, navigate, scroll } = useNavigation();
-  const { catalogRef, activeFilmIndex } = useFilmCatalog();
   useEffect(() => {
     document.documentElement.dataset.theme = "dark";
   }, []);
@@ -99,13 +96,7 @@ export default function App() {
             scroll={scroll}
             setPremiereOpen={setPremiereOpen}
           />
-          <FilmCatalog
-            catalogRef={catalogRef}
-            activeFilmIndex={activeFilmIndex}
-            currentPath={currentPath}
-            scroll={scroll}
-            setModal={setModal}
-          />
+          <FilmCatalog />
 
           <FilmDetailsPage />
           {currentPath === "/about-drishyam" && (
@@ -126,10 +117,9 @@ export default function App() {
             setContactStatus={setContactStatus}
           />
           <JournalSection navigate={navigate} />
-          <NewsletterSection />
         </>
       )}
-      <SiteFooter onNavigate={navigate} />
+      <SiteFooter onNavigate={navigate} showNewsletter={currentPath === "/"} />
       <VideoDialogs
         premiereOpen={premiereOpen}
         setPremiereOpen={setPremiereOpen}

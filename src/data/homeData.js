@@ -1,3 +1,4 @@
+import kaamyaabVideo from "../assets/slider/kaamyaab.mp4";
 import masaanCatalogVideo from "../assets/videos/Masaan_1.mp4";
 import dhanakCatalogVideo from "../assets/videos/Dhanak_1.mp4";
 import newtonCatalogVideo from "../assets/videos/Newton_4.mp4";
@@ -7,6 +8,8 @@ export const sliderVideos = [
   masaanCatalogVideo,
   siyaCatalogVideo,
   newtonCatalogVideo,
+  dhanakCatalogVideo,
+  kaamyaabVideo,
 ];
 
 export const slides = [
@@ -31,11 +34,14 @@ export const slides = [
     image:
       "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=2200&q=90",
   },
+  { title: "DHANAK", kicker: "A DRISHYAM FILMS RELEASE", date: "", video: dhanakCatalogVideo },
+  { title: "KAAMYAAB", kicker: "A DRISHYAM FILMS RELEASE", date: "", video: kaamyaabVideo },
 ];
 
 export const films = [
   {
     title: "Siya",
+    trailerUrl: "https://www.youtube.com/watch?v=fYhbW4I-Lwc",
     genre: "Realist Crime Drama",
     image:
       "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1000&q=88",
@@ -54,6 +60,7 @@ export const films = [
     director: "Neeraj Ghaywan",
     award: "FIPRESCI PRIZE\nCANNES 2015",
     title: "Masaan",
+    trailerUrl: "https://www.youtube.com/watch?v=SKJfBo3xMW0",
     genre: "Romance / Drama",
     image:
       "https://images.unsplash.com/photo-1594909122845-11baa439b7bf?auto=format&fit=crop&w=1000&q=88",
@@ -62,6 +69,7 @@ export const films = [
   },
   {
     title: "Dhanak",
+    trailerUrl: "https://www.youtube.com/watch?v=7uSpaly_8JQ",
     genre: "Drama",
     image:
       "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1000&q=88",
@@ -73,6 +81,7 @@ export const films = [
   },
   {
     title: "Newton",
+    trailerUrl: "https://www.youtube.com/watch?v=yU6zMPFd4UU",
     genre: "Black Comedy / Political Satire",
     image:
       "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1000&q=88",

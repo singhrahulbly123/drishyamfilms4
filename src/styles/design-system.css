@@ -1,0 +1,656 @@
+/* Shared identity: neutral surfaces, two fonts, colour reserved for hover. */
+:root {
+  --brand-accent: #e97f6f;
+  --brand-gradient: linear-gradient(to bottom, #f68e76 0%, #9b657c 100%);
+  --header-height: 92px;
+  --font-sans: Manrope, Arial, sans-serif;
+  --font-serif: "Playfair Display", Georgia, serif;
+}
+html { scroll-padding-top: calc(var(--header-height) + 16px); }
+body { font-family: var(--font-sans); }
+button, input, textarea, select { font-family: inherit; }
+.font-sans { font-family: var(--font-sans); }
+
+/* Logo stays above page content and the menu; dialogs remain above the header. */
+main .site-header {
+  position: fixed;
+  inset: 0 0 auto;
+  height: var(--header-height);
+  z-index: 19;
+  background: #111;
+  border-bottom: 1px solid #ffffff26;
+}
+/* Homepage header overlays the hero without a background or dividing line. */
+main.home-page .site-header {
+  background: transparent;
+  border-bottom: 0;
+}
+.site-header .brand { position: relative; z-index: 16; }
+.site-header .brand:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+.site-header .side-menu { background: #111; color: #fff; padding-top: calc(var(--header-height) + 24px); }
+.site-header .side-menu :is(button, a):is(:hover, :focus-visible),
+.site-header .side-menu :is(button, a):is(:hover, :focus-visible) :is(span, b, small, i) { color: #fff; }
+@media (hover: hover) {
+  .site-header .side-menu :is(button, a):hover,
+  .site-header .side-menu :is(button, a):hover :is(span, b, small, i) { color: var(--brand-accent); }
+}
+.site-header .side-menu :is(button, a):focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+.j-contents { top: calc(var(--header-height) + 24px); }
+.j-reading-progress { top: var(--header-height); }
+
+/* Artwork follows the monochrome treatment without altering source assets. */
+main img:not(.brand img):not(.footer-brand img), main video { filter: grayscale(1) !important; }
+
+
+/* Keep text readable on the now-neutral callout surfaces. */
+:is(.cu-closing, .j-closing, .ar-closing) em { color: #111; }
+.ar-closing .ar-link:hover { color: #111; border-color: var(--brand-accent); }
+.brand-file-input::file-selector-button { color: #111; }
+@media (hover: hover) {
+  .brand-file-input:hover::file-selector-button { background: var(--brand-gradient); }
+  :is(.cu-submit, .light):hover { background: var(--brand-gradient); color: #111; }
+}
+
+/* Zoom only artwork, keeping captions and surrounding layout stationary. */
+:is(.premiere-art, .film-watch-art, .film-gallery-card, .ar-photo) { overflow: hidden; }
+:is(.premiere-art, .film-watch-art, .film-gallery-card, .ar-photo) > img,
+.ar-award-film img { transform: scale(1); transition: transform 350ms ease; }
+@media (hover: hover) and (pointer: fine) {
+  :is(.premiere-art, .film-watch-art, .film-gallery-card, .ar-photo):hover > img,
+  .ar-award-film img:hover { transform: scale(1.04); }
+}
+@media (max-width: 800px) {
+  :root { --header-height: 88px; }
+  main .site-header .brand img { width: 62px; height: 62px; }
+  .site-header .side-menu,
+  .home-page .site-header .side-menu { padding-top: calc(var(--header-height) + 16px); overflow-y: auto; }
+  .j-contents { top: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  :is(.premiere-art, .film-watch-art, .film-gallery-card, .ar-photo) > img,
+  .ar-award-film img { transition: none; transform: none !important; }
+}
+
+.film-details-banner-credit { color: #fff; }
+
+/* A small, centred line over the landing-page film banner. */
+.hero-tagline { display: none; }
+.home-page .hero-tagline {
+  display: block;
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: max-content;
+  max-width: calc(100% - 48px);
+  margin: 0;
+  color: #fff;
+  font-family: var(--font-serif);
+  font-size: clamp(16px, 1.5vw, 22px);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.5;
+  letter-spacing: .025em;
+  text-align: center;
+  text-shadow: 0 1px 8px #000, 0 0 24px #0009;
+  pointer-events: none;
+}
+/* Readable newsletter copy on the light homepage background. */
+.home-page .signup .signup-copy,
+.home-page .signup .signup-copy :is(.eyebrow, h2, h2 em, p) {
+  color: #000;
+}
+/* Give the landing-page logo more visual weight than the menu control. */
+main.home-page { --header-height: 136px; }
+main.home-page .site-header .brand { flex-shrink: 0; }
+main.home-page .site-header .brand img {
+  width: 120px;
+  height: 120px;
+}
+@media (max-width: 800px) {
+  main.home-page { --header-height: 104px; }
+  main.home-page .site-header .brand img {
+    width: 88px;
+    height: 88px;
+  }
+}
+/* Compact monochrome navigation; brand colour belongs to the hovered row only. */
+main .site-header .side-menu {
+  background: #000;
+  color: #fff;
+  gap: 24px;
+}
+main .site-header .side-links > button,
+main .site-header .side-links .side-about-trigger {
+  min-height: 48px;
+  padding: 12px 10px;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -.015em;
+  gap: 12px;
+}
+main .site-header .side-about-submenu button {
+  min-height: 44px;
+  padding: 10px 14px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+main .site-header .side-links button {
+  background: transparent;
+  color: #fff;
+  transition: color .2s ease, background-color .2s ease;
+}
+main .site-header .side-links button :is(span, b, small, i) { color: inherit; }
+main .site-header .side-top { font-size: 9px; letter-spacing: .1em; }
+main .site-header .side-contact > a { font-size: 13px; }
+main .site-header .side-links button:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: -3px;
+}
+@media (hover: hover) and (pointer: fine) {
+  main .site-header .side-links button:hover {
+    background: var(--brand-gradient);
+    color: #000;
+  }
+  main .site-header .side-links button:hover :is(span, b, small, i) { color: #000; }
+}
+@media (max-width: 800px) {
+  main .site-header .side-links > button,
+  main .site-header .side-links .side-about-trigger { font-size: 18px; }
+}
+/* Five-film landing banner with direct selection and previous/next controls. */
+.home-page .hero { touch-action: pan-y; }
+.home-page .hero:focus-visible { outline: 2px solid #fff; outline-offset: -4px; }
+.hero-film-caption {
+  position: absolute; bottom: 42px; left: 4.5vw; color: #fff;
+  font: 600 13px/1.5 var(--font-sans); letter-spacing: .08em;
+  text-shadow: 0 1px 8px #000;
+}
+.hero-carousel-controls {
+  position: absolute; z-index: 3; bottom: 24px; left: 50%;
+  transform: translateX(-50%); display: flex; align-items: center; gap: 10px;
+  padding: 4px 8px; border-radius: 32px; background: #0008;
+}
+.hero-carousel-dots { display: flex; align-items: center; }
+.hero-carousel-dots button, .hero-carousel-arrow {
+  width: 44px; height: 44px; display: grid; place-items: center; padding: 0; color: #fff;
+}
+.hero-carousel-dots button span {
+  width: 8px; height: 8px; border: 1px solid #fff; border-radius: 50%;
+  background: transparent; transition: background .2s, transform .2s;
+}
+.hero-carousel-dots button.is-active span { background: #fff; transform: scale(1.25); }
+.hero-carousel-arrow { font-size: 22px; }
+.hero-carousel-controls button:focus-visible { outline: 2px solid #fff; outline-offset: -3px; border-radius: 50%; }
+.hero-carousel-status {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
+@media (hover: hover) {
+  .hero-carousel-arrow:hover { color: var(--brand-accent); }
+  .hero-carousel-dots button:hover span { background: var(--brand-accent); border-color: var(--brand-accent); }
+}
+@media (max-width: 800px) {
+  .hero-carousel-controls { bottom: 16px; gap: 0; padding: 2px 0; }
+  .hero-film-caption { left: 0; right: 0; bottom: 78px; text-align: center; font-size: 11px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-carousel-dots button span { transition: none; }
+  .home-page .hero-media { animation: none; }
+}
+
+/* Larger film and studio captions, legible over bright video frames. */
+.home-page .hero::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 180px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, .8));
+  pointer-events: none;
+}
+.home-page .hero-film-caption,
+.home-page .hero-credit {
+  z-index: 2;
+  color: #fff;
+  font-weight: 700;
+  text-shadow: 0 2px 6px #000;
+}
+.home-page .hero-film-caption { font-size: 16px; }
+.home-page .hero-credit { display: block; font-size: 12px; line-height: 1.5; bottom: 45px; }
+@media (max-width: 800px) {
+  .home-page .hero-film-caption {
+    left: 20px; right: auto; bottom: 82px;
+    text-align: left; font-size: 14px;
+  }
+  .home-page .hero-credit { right: 20px; bottom: 84px; font-size: 12px; letter-spacing: .06em; }
+}
+/* Festival laurels sit above each accolade in the film gallery. */
+.siena-acclaim .festival-laurel {
+  display: block;
+  width: 76px;
+  height: 49px;
+  margin-inline: auto;
+  color: #fff;
+  filter: drop-shadow(0 2px 3px #0009);
+}
+.siena-acclaim strong { text-shadow: 0 2px 5px #000; }
+@media (max-width: 800px) {
+  .siena-acclaim .festival-laurel { width: 54px; height: 35px; }
+}
+@media (max-height: 500px) and (orientation: landscape) {
+  .siena-acclaim .festival-laurel { width: 44px; height: 28px; }
+}
+
+/* Direct trailer links follow the reference's understated italic treatment. */
+.catalog .film-trailer-link {
+  display: inline-flex; align-items: center; gap: 22px;
+  min-height: 44px; margin-top: 28px; padding: 8px 0;
+  color: #fff; font: italic 500 clamp(16px, 1.4vw, 20px)/1.4 var(--font-serif);
+  text-transform: uppercase; letter-spacing: .025em; text-decoration: none;
+  text-shadow: 0 2px 6px #000;
+}
+.catalog .film-trailer-link > span { font: normal 28px/1 var(--font-sans); }
+.catalog .film-trailer-link:focus-visible { outline: 2px solid #fff; outline-offset: 5px; }
+@media (hover: hover) {
+  .catalog .film-trailer-link:hover { color: var(--brand-accent); }
+}
+@media (max-width: 800px) {
+  .catalog .film-trailer-link { margin-top: 18px; font-size: 16px; }
+}
+
+/* Visible section title above the film showcase, outside the sticky video. */
+.catalog-section-heading {
+  padding: 48px clamp(24px, 4.5vw, 76px) 32px;
+  background: #111;
+  color: #fff;
+}
+.catalog-section-heading h2 {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: clamp(28px, 3vw, 44px);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -.035em;
+}
+@media (max-width: 800px) {
+  .catalog-section-heading { padding: 32px var(--home-gutter, 24px) 24px; }
+}
+/* Slightly larger director credits with responsive spacing. */
+.catalog .siena-copy .film-director-credit {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: clamp(24px, 5vw, 80px);
+  row-gap: 6px;
+  font-size: 13px;
+  line-height: 1.6;
+  font-weight: 700;
+  white-space: normal;
+  color: #fff;
+  text-shadow: 0 2px 5px #000;
+}
+@media (max-width: 800px) {
+  .catalog .siena-copy .film-director-credit { font-size: 12px; column-gap: 24px; }
+}
+/* Editorial film grid: mixed artwork proportions and restrained captions. */
+main .catalog.film-showcase {
+  height: auto; padding: 64px clamp(20px, 4.5vw, 76px) 80px;
+  background: #fff; color: #111;
+}
+.showcase-heading { margin-bottom: 32px; }
+.showcase-heading h2 { margin: 0; font: 500 clamp(28px, 3vw, 44px)/1.2 var(--font-sans); letter-spacing: -.04em; }
+.showcase-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; gap: 48px 24px; }
+.showcase-card { min-width: 0; }
+.showcase-card--0 { grid-row: span 2; }
+.showcase-card--3 { grid-column: 2; }
+.showcase-art { display: block; position: relative; overflow: hidden; background: #111; color: #fff; aspect-ratio: 4 / 3; }
+.showcase-card--0 .showcase-art { aspect-ratio: 2 / 3; }
+.showcase-card--3 .showcase-art { aspect-ratio: 16 / 10; }
+.showcase-art > img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+.showcase-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between; gap: 12px; padding: clamp(16px, 2vw, 28px); background: #000c; opacity: 0; transition: opacity .25s ease; }
+.showcase-overlay p { margin: 0; font-size: 13px; line-height: 1.5; }
+.showcase-director { display: grid; gap: 3px; }
+.showcase-director > span { font-size: 12px; }
+.showcase-director strong { font-size: 15px; font-weight: 600; }
+.showcase-awards { display: flex; gap: 12px; align-items: start; }
+.showcase-awards > div { flex: 1; min-width: 0; text-align: center; }
+.showcase-awards .festival-laurel { display: block; width: 42px; height: 27px; margin: 0 auto 6px; }
+.showcase-awards span { display: block; font-size: 10px; line-height: 1.35; }
+.showcase-watch { display: flex; justify-content: space-between; align-items: center; font: italic 16px/1.4 var(--font-serif); }
+.showcase-caption { padding-top: 12px; }
+.showcase-caption p { margin: 0 0 5px; font-size: 12px; line-height: 1.5; color: #555; }
+.showcase-caption h3 { margin: 0 0 8px; font: 600 21px/1.25 var(--font-sans); letter-spacing: -.03em; }
+.showcase-caption .showcase-director-caption { font-size: 13px; }
+.showcase-director-caption strong { color: #111; font-weight: 500; margin-left: 8px; }
+.showcase-caption > a { display: inline-flex; align-items: center; gap: 16px; min-height: 44px; font-size: 13px; color: #111; text-decoration: none; }
+.showcase-art:focus-visible { outline: 3px solid #111; outline-offset: 4px; }
+.showcase-art:focus-visible .showcase-overlay { opacity: 1; }
+.showcase-caption > a:focus-visible { outline: 2px solid #111; outline-offset: 3px; }
+@media (hover: hover) and (pointer: fine) {
+  .showcase-art:hover > img { transform: scale(1.04); }
+  .showcase-art:hover .showcase-overlay { opacity: 1; }
+  .showcase-caption > a:hover { color: var(--brand-accent); }
+}
+@media (max-width: 1000px) {
+  .showcase-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 20px; }
+  .showcase-card--0 { grid-row: auto; }
+  .showcase-card--3 { grid-column: auto; }
+}
+@media (max-width: 600px) {
+  main .catalog.film-showcase { padding-block: 40px 48px; }
+  .showcase-grid { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .showcase-art, .showcase-card--3 .showcase-art { aspect-ratio: 4 / 3; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .showcase-art > img, .showcase-overlay { transition: none; }
+}
+
+/* One prominent journal heading replaces the small label and tagline. */
+.journal .journal-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+.journal .journal-heading h2 {
+  margin: 0;
+  font-size: clamp(40px, 5vw, 72px);
+  line-height: 1.1;
+  letter-spacing: -.05em;
+}
+.journal .journal-heading > button { flex-shrink: 0; }
+@media (max-width: 800px) {
+  .home-page .journal .journal-heading h2 {
+    margin: 0;
+    font-size: clamp(36px, 9vw, 56px);
+    line-height: 1.1;
+  }
+}
+/* Clip the journal poster zoom so captions and card spacing stay still. */
+.journal-grid .journal-poster { overflow: hidden; }
+.journal-grid .journal-poster img {
+  display: block;
+  transform: scale(1);
+  transition: transform 350ms ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .journal-grid .journal-poster:hover img { transform: scale(1.04); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .journal-grid .journal-poster img { transition: none; }
+  .journal-grid .journal-poster:hover img { transform: none; }
+}
+/* Keep journal image zoom inside fixed frames, never moving the captions. */
+.journal-page .j-article-image {
+  overflow: hidden;
+  aspect-ratio: 2.25;
+  max-height: 660px;
+}
+.journal-page .j-article-image > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+}
+.journal-page .j-card-image > img,
+.journal-page .j-feature-link > img,
+.journal-page .j-article-image > img {
+  transform: scale(1);
+  transform-origin: center;
+  transition: transform 350ms ease;
+}
+.journal-page .j-card-link:hover .j-card-image > img,
+.journal-page .j-feature-link:hover > img { transform: scale(1); }
+@media (hover: hover) and (pointer: fine) {
+  .journal-page .j-card-link .j-card-image:hover > img,
+  .journal-page .j-feature-link:hover > img,
+  .journal-page .j-article-image:hover > img { transform: scale(1.04); }
+}
+@media (max-width: 640px) {
+  .journal-page .j-article-image { aspect-ratio: 1.2; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .journal-page .j-card-image > img,
+  .journal-page .j-feature-link > img,
+  .journal-page .j-article-image > img { transition: none; }
+  .journal-page .j-card-link .j-card-image:hover > img,
+  .journal-page .j-feature-link:hover > img,
+  .journal-page .j-article-image:hover > img { transform: none; }
+}
+
+/* Subscription and navigation share one footer, without promotional headings. */
+.cinema-footer .footer-columns { grid-template-columns: 1fr 1fr minmax(280px, 1.5fr); }
+.cinema-footer .footer-subscription { margin: 0; min-width: 0; align-self: start; }
+.cinema-footer .footer-subscription > label {
+  display: block; margin-bottom: 16px; font: 500 12px/1.5 var(--font-sans); color: #fff;
+}
+.footer-subscription-fields { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+.cinema-footer .footer-subscription input {
+  flex: 1 1 160px; width: 100%; min-width: 0; min-height: 44px; padding: 10px 0;
+  border: 0; border-bottom: 1px solid #ffffff70; border-radius: 0;
+  background: transparent; color: #fff; font: 14px/1.5 var(--font-sans);
+}
+.cinema-footer .footer-subscription input::placeholder { color: #aaa; }
+.cinema-footer .footer-subscription input:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+.cinema-footer .footer-subscribe-button { flex-shrink: 0; min-height: 44px; color: #fff; }
+@media (max-width: 800px) {
+  .cinema-footer .footer-columns,
+  .home-page .cinema-footer .footer-columns { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cinema-footer .footer-subscription { grid-column: 1 / -1; padding-top: 8px; }
+}
+@media (max-width: 380px) {
+  .footer-subscription-fields { align-items: stretch; flex-direction: column; }
+  .cinema-footer .footer-subscription input { flex-basis: auto; }
+  .cinema-footer .footer-subscribe-button { align-self: flex-start; }
+}
+@media (min-width: 801px) {
+  .cinema-footer .footer-top,
+  .cinema-footer .footer-bottom { grid-template-columns: minmax(0, 1fr) auto; }
+}
+/* Drishyam film detail: looping excerpt, readable credits and a concise story. */
+.about-page .film-details-banner-copy > p:first-of-type {
+  color: #fff;
+  font-size: 12px;
+  line-height: 1.5;
+  text-shadow: 0 2px 6px #000;
+}
+.about-page .film-details-banner-credit {
+  color: #fff;
+  border-left-color: #fff;
+  text-shadow: 0 2px 6px #000;
+}
+.about-page .film-details-banner-credit span { color: #fff; font-size: 13px; line-height: 1.5; }
+.about-page .film-details-banner-credit b { font-size: 18px; line-height: 1.4; }
+.about-page .film-story-inner {
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  align-items: start;
+}
+.about-page .film-logline {
+  margin: 0;
+  max-width: 620px;
+  color: #fff;
+  font: 400 clamp(20px, 2vw, 28px)/1.6 var(--font-sans);
+}
+.about-page .film-story-credits {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.about-page .film-story-credits dt { font: 500 14px/1.5 var(--font-sans); color: #bbb; }
+.about-page .film-story-credits dd { font-size: 16px; line-height: 1.6; color: #fff; }
+@media (max-width: 800px) {
+  .about-page .film-details-banner-copy { bottom: 132px; }
+  .about-page .film-details-banner-credit span { font-size: 12px; }
+  .about-page .film-details-banner-credit b { font-size: 17px; }
+  .about-page .film-story-inner { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+}
+@media (max-width: 380px) {
+  .about-page .film-story-credits { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* Compact film-detail gallery: one manually scrollable strip, no duplicate rows. */
+.about-page .film-gallery.film-gallery-single {
+  width: 100%;
+  margin: 0;
+  padding: 28px clamp(20px, 4vw, 64px) 32px;
+}
+.film-gallery.film-gallery-single::before,
+.film-gallery.film-gallery-single::after { display: none; }
+.film-gallery-toolbar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 20px; margin-bottom: 16px; color: #fff;
+}
+.film-gallery-toolbar h2 {
+  margin: 0; font: 400 clamp(26px, 3vw, 36px)/1.2 var(--font-serif);
+  letter-spacing: -.025em;
+}
+.film-gallery-controls { display: flex; gap: 8px; }
+.film-gallery-controls button {
+  width: 44px; height: 44px; border: 1px solid #ffffff70; border-radius: 50%;
+  color: #fff; font-size: 22px; line-height: 1;
+}
+.film-gallery-strip {
+  display: flex; gap: 16px; overflow-x: auto; overflow-y: hidden;
+  scroll-snap-type: x proximity; padding-bottom: 12px;
+  scrollbar-width: thin; scrollbar-color: #aaa #222;
+}
+.film-gallery-still {
+  flex: 0 0 auto; height: 210px; margin: 0; overflow: hidden;
+  scroll-snap-align: start; background: #222;
+}
+.about-page .film-gallery-still > img {
+  display: block; width: auto; height: 100%; max-width: none;
+  filter: grayscale(1) brightness(1.15) !important;
+  transform: scale(1); transition: transform 350ms ease;
+}
+.film-gallery-strip:focus-visible,
+.film-gallery-controls button:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+@media (hover: hover) and (pointer: fine) {
+  .film-gallery-controls button:hover { background: var(--brand-gradient); color: #111; }
+  .film-gallery-still:hover > img { transform: scale(1.04); }
+}
+@media (max-width: 800px) {
+  .about-page .film-gallery.film-gallery-single { padding-block: 24px; }
+  .film-gallery-still { height: 165px; }
+  .film-gallery-strip { gap: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .about-page .film-gallery-still > img { transition: none; transform: none; }
+}
+
+/* Siya's official trailer is separate from the looping hero film excerpt. */
+.film-trailer-section {
+  padding: 40px clamp(20px, 5vw, 80px) 48px;
+  background: #111; color: #fff;
+}
+.film-trailer-heading {
+  max-width: 1100px; margin: 0 auto 20px; display: flex;
+  justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;
+}
+.film-trailer-heading h2 {
+  margin: 0; font: 500 clamp(26px, 3vw, 38px)/1.2 var(--font-sans); letter-spacing: -.035em;
+}
+.film-trailer-heading a { color: #fff; font-size: 13px; text-underline-offset: 4px; }
+.film-trailer-player { max-width: 1100px; margin: 0 auto; aspect-ratio: 16 / 9; background: #000; }
+.film-trailer-player iframe { display: block; width: 100%; height: 100%; border: 0; }
+.film-trailer-preview {
+  display: block; position: relative; width: 100%; height: 100%; overflow: hidden;
+  padding: 0; color: #fff; background: #000;
+}
+.film-trailer-preview img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.film-trailer-preview::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(transparent 50%, #000b);
+}
+.film-trailer-play {
+  position: absolute; z-index: 1; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  display: grid; place-items: center; width: clamp(54px, 7vw, 80px); aspect-ratio: 1;
+  border: 2px solid #fff; border-radius: 50%; background: #0007; font-size: 26px; padding-left: 4px;
+}
+.film-trailer-label { position: absolute; z-index: 1; bottom: 22px; left: 24px; font-size: 16px; }
+.film-trailer-preview:focus-visible { outline: 3px solid #fff; outline-offset: 5px; }
+@media (hover: hover) {
+  .film-trailer-preview:hover .film-trailer-play { background: var(--brand-gradient); color: #111; }
+  .film-trailer-heading a:hover { color: var(--brand-accent); }
+}
+@media (max-width: 600px) {
+  .film-trailer-section { padding-block: 28px 32px; }
+  .film-trailer-label { left: 16px; bottom: 12px; font-size: 13px; }
+}
+
+/* Reference-inspired compact footer, using only Drishyam content and branding. */
+main footer.cinema-footer.compact-footer {
+  padding: 44px clamp(20px, 4.5vw, 76px) 20px;
+  background: #000; color: #fff; border-top: 1px solid #ffffff30;
+}
+.compact-footer::before, .compact-footer::after { display: none; }
+.compact-footer .footer-layout {
+  display: grid; grid-template-columns: minmax(180px, .85fr) minmax(0, 3fr);
+  align-items: start; gap: clamp(32px, 5vw, 80px);
+}
+main .compact-footer .footer-top {
+  display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-start;
+  gap: 18px; min-height: 0; padding: 0; border: 0;
+}
+.compact-footer .footer-top .footer-logo { align-self: flex-start; margin: 0; padding: 0; }
+.compact-footer .footer-top .footer-logo img { width: 90px; height: 90px; }
+main .compact-footer .footer-mail {
+  font: 400 11px/1.6 var(--font-sans); letter-spacing: 0;
+  border: 0; padding: 0; overflow-wrap: anywhere; text-decoration: none;
+}
+main .compact-footer .footer-columns {
+  display: grid; grid-template-columns: minmax(110px, .8fr) minmax(90px, .65fr) minmax(230px, 1.6fr);
+  gap: 24px; margin: 0; padding: 0; border: 0; align-items: start;
+}
+main .compact-footer .footer-columns > div { display: flex; flex-direction: column; gap: 0; }
+main .compact-footer .footer-label {
+  margin: 0 0 12px; padding: 0 0 10px; border-bottom: 1px solid #ffffff40;
+  color: #aaa; font: 500 10px/1.5 var(--font-sans); letter-spacing: .05em;
+}
+main .compact-footer .footer-columns a {
+  min-height: 30px; padding: 5px 0; font: 400 11px/1.6 var(--font-sans);
+  color: #fff; letter-spacing: .015em; text-decoration: none; justify-content: flex-start;
+}
+.compact-footer .footer-social-link svg { display: none; }
+main .compact-footer .footer-subscription { padding: 0; grid-column: auto; }
+main .compact-footer .footer-subscription > label {
+  margin: 0 0 18px; padding-bottom: 10px; border-bottom: 1px solid #ffffff40;
+  font: 500 10px/1.5 var(--font-sans); color: #aaa; letter-spacing: .05em;
+}
+.compact-footer .footer-subscription-fields { display: flex; flex-wrap: nowrap; gap: 0; border: 1px solid #888; }
+main .compact-footer .footer-subscription input {
+  flex: 1 1 0; min-width: 0; width: 0; min-height: 44px;
+  border: 0; padding: 12px; font-size: 12px;
+}
+.compact-footer .footer-signup-button {
+  flex: 0 0 auto; min-height: 44px; padding: 12px 20px;
+  background: #fff; color: #000; font: 600 10px/1.5 var(--font-sans); letter-spacing: .04em;
+}
+.compact-footer .footer-signup-button:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+main .compact-footer .footer-bottom {
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
+  gap: 16px; margin-top: 28px; padding-top: 16px; min-height: 0; border-top: 1px solid #ffffff25;
+}
+main .compact-footer .footer-bottom p { max-width: none; font-size: 9px; line-height: 1.6; color: #aaa; }
+@media (hover: hover) {
+  main .compact-footer .footer-columns a:hover, main .compact-footer .footer-mail:hover { color: var(--brand-accent); }
+  .compact-footer .footer-signup-button:hover { background: var(--brand-gradient); }
+}
+@media (max-width: 1100px) {
+  .compact-footer .footer-layout { grid-template-columns: minmax(150px, .7fr) minmax(0, 2fr); gap: 28px; }
+  main .compact-footer .footer-columns { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  main .compact-footer .footer-subscription { grid-column: 1 / -1; }
+}
+@media (max-width: 600px) {
+  .compact-footer .footer-layout { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  main .compact-footer .footer-top { flex-direction: row; align-items: center; justify-content: space-between; }
+  .compact-footer .footer-top .footer-logo img { width: 76px; height: 76px; }
+  main .compact-footer .footer-columns a { min-height: 44px; }
+  main .compact-footer .footer-subscription-fields { flex-direction: row; }
+  .compact-footer .footer-signup-button { padding-inline: 16px; }
+}

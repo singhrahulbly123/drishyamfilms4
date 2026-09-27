@@ -62,15 +62,11 @@ export default function ArchivePages({ onNavigate }) {
             <span>AWARDS &amp; GALLERY</span>
           </div>
           <div className="ar-hero-body">
-            <p className="ar-eyebrow">
-              DRISHYAM FILMS / A CELEBRATION OF CINEMA
-            </p>
             <h1>
               Awards <em>&amp; Gallery</em>
             </h1>
             <p className="ar-hero-description">
-              The honours that celebrate our stories. The moments that bring
-              them to life. Step into the world of Drishyam Films.
+              Awards received by our films, alongside posters and stills from the productions.
             </p>
             <nav
               className="ar-section-links"
@@ -84,14 +80,10 @@ export default function ArchivePages({ onNavigate }) {
               </a>
             </nav>
           </div>
-          <div className="ar-hero-foot">
-            <span>INDEPENDENT SPIRIT. LASTING IMPACT.</span>
-            <span>HONOURS &amp; MOMENTS, TOGETHER</span>
-          </div>
         </div>
       </section>
       <div className="ar-festival-strip">
-        <span>STORIES WITHOUT BORDERS</span>
+        <span>Film festivals & awards</span>
         <p>
           Cannes <i>✦</i> Berlinale <i>✦</i> National Film Awards
         </p>
@@ -99,11 +91,8 @@ export default function ArchivePages({ onNavigate }) {
       <ArchiveCollection isGallery={false} />
       <ArchiveCollection isGallery />
       <section className="ar-closing">
-        <p className="ar-eyebrow">THE DRISHYAM PERSPECTIVE</p>
         <h2>
-          Behind every honour,
-          <br />
-          <em>a story worth telling.</em>
+          Watch <em>our films.</em>
         </h2>
         <InternalLink className="ar-link" to="/#films" onNavigate={onNavigate}>
           EXPLORE OUR FILMS <span aria-hidden="true">↗</span>
@@ -130,18 +119,14 @@ function ArchiveCollection({ isGallery }) {
       >
         <header className="ar-section-heading">
           <div>
-            <p className="ar-eyebrow">
-              {isGallery ? "02 / THROUGH OUR LENS" : "01 / OUR ROLL OF HONOUR"}
-            </p>
             <h2>
-              {isGallery ? "Cinema, " : "Recognition that "}
-              <em>{isGallery ? "up close." : "matters."}</em>
+              {isGallery ? "Stills & posters" : "Awards"}
             </h2>
           </div>
           <p>
             {isGallery
-              ? "Pause. Look closer. There is a story in every still."
-              : "From festival screens to national honours, a shared celebration of fearless storytelling."}
+              ? "Browse film stills and original posters. Select an image to view it in full."
+              : "Festival and national awards, organised by film."}
           </p>
         </header>
         <div className="ar-toolbar">
@@ -165,7 +150,7 @@ function ArchiveCollection({ isGallery }) {
             ))}
           </div>
           <span className="ar-count" aria-live="polite">
-            {String(items.length).padStart(2, "0")}{" "}
+            {items.length}{" "}
             {isGallery ? "FRAMES" : "HONOURS"}
           </span>
         </div>
@@ -187,9 +172,6 @@ function ArchiveCollection({ isGallery }) {
                     <strong>{item.title}</strong>
                   </span>
                   <b aria-hidden="true">↗</b>
-                </span>
-                <span className="ar-photo-number" aria-hidden="true">
-                  {String(index + 1).padStart(2, "0")}
                 </span>
               </button>
             ))}
@@ -215,17 +197,11 @@ function ArchiveCollection({ isGallery }) {
                     <h4>{item.film}</h4>
                     <p>{item.note}</p>
                   </div>
-                  <span className="ar-award-index">0{index + 1}</span>
                 </div>
               </article>
             ))}
           </div>
         )}
-        <div className="ar-endnote">
-          <span />
-          {isGallery ? "MOMENTS THAT STAY WITH YOU" : "THE STORY CONTINUES"}
-          <span />
-        </div>
       </section>
       {activeImage !== null && (
         <GalleryLightbox

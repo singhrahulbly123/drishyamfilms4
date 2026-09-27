@@ -17,7 +17,7 @@ export const contactPathways = [
     number: "02",
     title: "Partnerships & distribution",
     description:
-      "Start a conversation about bringing meaningful cinema to new audiences.",
+      "Contact us about distribution, screenings or a potential partnership.",
     topic: "Partnerships & distribution",
   },
   {

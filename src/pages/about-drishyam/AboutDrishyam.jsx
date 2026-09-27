@@ -1,3 +1,4 @@
+import "../../styles/internal-editorial.css";
 import TicketButton from "../../components/TicketButton";
 import heroImage from "../../assets/images/about-drishyam-hero.png";
 import processImage from "../../assets/images/about-drishyam-process.png";
@@ -13,19 +14,19 @@ const ArrowUpRight = () => (
 const process = [
   [
     "Discover",
-    "We seek original voices and stories rooted in a distinct, honest point of view.",
+    "We read scripts and speak with filmmakers about the films they want to make.",
   ],
   [
     "Develop",
-    "Writers and filmmakers get the time, conversation and creative rigour a story needs.",
+    "We work through drafts with the writer and director before moving into production.",
   ],
   [
     "Produce",
-    "Every department works together to protect the emotional truth behind each frame.",
+    "We bring the cast and crew together and plan the shoot around the script.",
   ],
   [
     "Connect",
-    "We take Indian cinema to theatres, streaming audiences and festivals around the world.",
+    "We work on release plans for theatres, streaming platforms and film festivals.",
   ],
 ];
 
@@ -39,21 +40,14 @@ export default function AboutDrishyamPage({ onNavigate }) {
           fetchPriority="high"
         />
         <div className="about-studio-hero-shade" />
-        <span className="about-studio-index">01 / 04</span>
         <div className="about-studio-hero-copy">
           <p>ABOUT DRISHYAM FILMS</p>
           <h1>
-            Stories with
-            <br />
-            <em>a point of view.</em>
+            Independent <br /> <em>Indian cinema.</em>
           </h1>
           <span>
-            Independent cinema from India, made with conviction for audiences
-            everywhere.
+            Films made in India, for audiences here and around the world.
           </span>
-        </div>
-        <div className="about-scroll-cue">
-          <i /> SCROLL TO DISCOVER
         </div>
       </section>
 
@@ -66,32 +60,24 @@ export default function AboutDrishyamPage({ onNavigate }) {
               loading="lazy"
               decoding="async"
             />
-            <span>DRISHYAM FILMS / NEW DELHI</span>
+            <span>Drishyam Films</span>
           </div>
           <div className="about-studio-overview-content">
             <p className="about-studio-overview-label">
-              ABOUT US / THE PRODUCTION HOUSE
+              Drishyam Films
             </p>
             <h2>
-              An independent home for cinema with <em>something to say.</em>
+              A film starts <em>with its filmmaker.</em>
             </h2>
             <p className="about-studio-overview-lead">
-              Drishyam Films develops and produces distinctive Indian motion
-              pictures, bringing artist-led stories from their earliest spark to
-              audiences around the world.
+              Drishyam Films is an independent Indian production house. We work with writers and directors to develop, produce and release their films.
             </p>
             <div className="about-studio-overview-copy">
               <p>
-                Our work begins with a voice worth listening to. We partner
-                closely with writers and directors, shaping every project
-                through thoughtful development while protecting the character
-                and conviction that made the story original.
+                We begin with the script and the person behind it. Working together, we ask what the film needs, what needs another draft and how to get it made.
               </p>
               <p>
-                Across production, post-production and release, we bring
-                together exceptional creative talent and practical
-                expertise—building films that are culturally rooted, emotionally
-                precise and made to endure beyond the moment.
+                That work continues through the shoot, the edit and the release. Each stage brings different decisions, with the filmmaker closely involved throughout.
               </p>
             </div>
             <dl className="about-studio-overview-meta">
@@ -113,34 +99,22 @@ export default function AboutDrishyamPage({ onNavigate }) {
       </section>
 
       <section className="about-studio-intro">
-        <aside>
-          <span>01</span>
-          <p>WHO WE ARE</p>
-        </aside>
         <div>
           <h2>
-            The most local stories can carry the most <em>universal truth.</em>
+            Films rooted <em>in everyday India.</em>
           </h2>
           <div className="about-studio-intro-copy">
             <p>
-              Drishyam Films is an independent Indian motion picture studio
-              built to champion powerful stories and the filmmakers brave enough
-              to tell them.
+              Our films follow people dealing with the circumstances around them: family, work, ambition, loss and the choices they have to make.
             </p>
             <p>
-              From emerging voices to celebrated auteurs, we nurture cinema with
-              patience, integrity and craft—taking distinctive Indian narratives
-              from their first idea to audiences across the world.
+              We work with both new and established filmmakers. Each brings a different background and a different way of telling a story.
             </p>
             <p>
-              Our approach is filmmaker-first. We create room for writers,
-              directors and craftspeople to test ideas, take creative risks and
-              preserve the instinct that made each project worth pursuing.
+              During development, we read, discuss and revise. A script needs room to change before the practical demands of a shoot take over.
             </p>
             <p>
-              From development and production to the final release, every
-              decision is guided by the story—its emotional truth, cultural
-              specificity and the audience it hopes to reach.
+              Our job is to support those decisions and help the finished film reach its audience, in theatres, at festivals and through streaming.
             </p>
           </div>
         </div>
@@ -149,19 +123,18 @@ export default function AboutDrishyamPage({ onNavigate }) {
       <section className="about-studio-stats" aria-label="Studio highlights">
         <article>
           <strong>2014</strong>
-          <span>THE JOURNEY BEGAN</span>
+          <span>Founded</span>
         </article>
         <article>
           <strong>20+</strong>
-          <span>ORIGINAL STORIES</span>
+          <span>Films</span>
         </article>
         <article>
           <strong>30+</strong>
-          <span>GLOBAL FESTIVALS</span>
+          <span>Film festivals</span>
         </article>
         <article>
-          <strong>01</strong>
-          <span>UNWAVERING VISION</span>
+          <strong>India</strong> <span>Our home</span>
         </article>
       </section>
 
@@ -173,21 +146,17 @@ export default function AboutDrishyamPage({ onNavigate }) {
             loading="lazy"
             decoding="async"
           />
-          <span>FROM PAGE / TO SCREEN</span>
+          <span>On set</span>
         </div>
         <div className="about-studio-process-copy">
           <header>
-            <p>02 / HOW WE WORK</p>
             <h2>
-              A home for stories,
-              <br />
-              <em>from instinct to impact.</em>
+              Making <em>a film.</em>
             </h2>
           </header>
           <div className="about-studio-process-list">
-            {process.map(([title, description], index) => (
+            {process.map(([title, description]) => (
               <article key={title}>
-                <span>0{index + 1}</span>
                 <div>
                   <h3>{title}</h3>
                   <p>{description}</p>
@@ -200,36 +169,27 @@ export default function AboutDrishyamPage({ onNavigate }) {
 
       <section className="about-studio-principles">
         <header>
-          <p>03 / WHAT WE CHAMPION</p>
           <h2>
-            Cinema led by
-            <br />
-            <em>clarity and courage.</em>
+            What we look for <em>in a film.</em>
           </h2>
         </header>
         <div>
           <article>
-            <span>01</span>
-            <h3>Original voices</h3>
+            <h3>A personal perspective</h3>
             <p>
-              Filmmakers whose way of seeing the world is unmistakably their
-              own.
+              A filmmaker with a clear idea of the story they want to tell, and why they want to tell it.
             </p>
           </article>
           <article>
-            <span>02</span>
-            <h3>Cultural truth</h3>
+            <h3>A sense of place</h3>
             <p>
-              Stories grounded in real places, lived experience and a precise
-              sense of humanity.
+              Characters whose language, surroundings and daily lives feel specific to where they come from.
             </p>
           </article>
           <article>
-            <span>03</span>
-            <h3>Enduring craft</h3>
+            <h3>Attention to detail</h3>
             <p>
-              Patient, collaborative filmmaking designed to stay with an
-              audience beyond the final frame.
+              Care in the writing, performances, sound and edit, including the small details a viewer may only notice later.
             </p>
           </article>
         </div>
@@ -241,7 +201,6 @@ export default function AboutDrishyamPage({ onNavigate }) {
           onClick={() => onNavigate("/from-founder")}
         >
           <div>
-            <p>CONTINUE OUR STORY</p>
             <h2>
               Hear from
               <br />
@@ -253,7 +212,6 @@ export default function AboutDrishyamPage({ onNavigate }) {
           </div>
           <span className="about-studio-next-image">
             <img src={teamImage} alt="" loading="lazy" decoding="async" />
-            <i>02 / 04</i>
           </span>
         </button>
         <TicketButton

@@ -16,21 +16,14 @@ const TeamHero = () => (
       fetchPriority="high"
     />
     <div className="about-hero-shade" />
-    <div className="about-hero-number">03 / 04</div>
     <div className="about-hero-copy">
       <p>MEET OUR TEAM</p>
       <h1>
-        Many minds.
-        <br />
-        <em>One shared instinct.</em>
+        The team at <br /> <em>Drishyam Films.</em>
       </h1>
       <span>
-        A collective of filmmakers, producers and collaborators devoted to
-        singular cinema.
+        Meet the people working across development, production and the studio.
       </span>
-    </div>
-    <div className="about-scroll-cue">
-      <i /> SCROLL TO DISCOVER
     </div>
   </section>
 );
@@ -38,17 +31,15 @@ const TeamHero = () => (
 export default function MeetOurTeamPage({ onNavigate }) {
   const openProfile = (member) =>
     onNavigate(`/team-detail?member=${member.slug}`);
-  const renderGroup = (group, label, index) => (
+  const renderGroup = (group, label) => (
     <section className="team-directory" key={group}>
       <div className="team-directory-heading">
-        <span>{index}</span>
         <p>{label}</p>
-        <small>04 PEOPLE</small>
       </div>
       <div className="team-grid">
         {team
           .filter((member) => member.group === group)
-          .map((member, memberIndex) => (
+          .map((member) => (
             <article
               key={member.slug}
               tabIndex={0}
@@ -67,7 +58,6 @@ export default function MeetOurTeamPage({ onNavigate }) {
                   loading="lazy"
                   decoding="async"
                 />
-                <span>{String(memberIndex + 1).padStart(2, "0")}</span>
                 <div className="team-card-reveal">
                   <p>{member.bio}</p>
                   <b>
@@ -94,35 +84,23 @@ export default function MeetOurTeamPage({ onNavigate }) {
     <div className="about-content-page">
       <TeamHero />
       <section className="team-intro">
-        <div className="about-section-label">
-          <span>03</span> OUR PEOPLE
-        </div>
         <h2>
-          Good films are never made <em>alone.</em>
+          Who you will <em>work with.</em>
         </h2>
         <p>
-          We are a close-knit team of producers, story champions and studio
-          specialists who bring curiosity, rigour and respect to every frame.
+          Our team works with writers, directors and crews through each stage of a film. Read more about their roles below.
         </p>
       </section>
-      {renderGroup("Leadership", "Creative leadership", "01")}
+      {renderGroup("Leadership", "Creative leadership")}
       <section className="team-quote">
-        <span>THE COLLECTIVE</span>
         <blockquote>
-          Different disciplines.
-          <br />
-          <em>One cinematic language.</em>
+          Writing, production, post. <br /> <em>It takes a whole crew.</em>
         </blockquote>
       </section>
-      {renderGroup("Studio", "The studio team", "02")}
+      {renderGroup("Studio", "The studio team")}
       <section className="team-culture">
-        <p>HOW WE WORK</p>
         <h2>
-          Curiosity in the room.
-          <br />
-          Courage on the page.
-          <br />
-          <em>Care in every frame.</em>
+          We work together, <br /> <em>from the first draft <br /> to the final edit.</em>
         </h2>
       </section>
     </div>

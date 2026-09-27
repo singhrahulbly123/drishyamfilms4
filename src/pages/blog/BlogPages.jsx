@@ -22,9 +22,7 @@ export default function BlogPages({ currentPath, onNavigate }) {
       <div className="journal-page j-not-found">
         <p className="j-eyebrow">THE JOURNAL / 404</p>
         <h1>
-          This story is
-          <br />
-          <em>still unwritten.</em>
+          Article <em>not found.</em>
         </h1>
         <InternalLink
           className="j-text-link"

@@ -27,32 +27,23 @@ export default function JournalPage({ onNavigate }) {
           fetchPriority="high"
         />
         <div className="about-hero-shade" />
-        <div className="about-hero-number">BLOG / FILM &amp; CULTURE</div>
         <div className="about-hero-copy">
-          <p>THE DRISHYAM BLOG</p>
+          <p>Drishyam Films</p>
           <h1>
-            Film stories.
-            <br />
-            <em>Fresh perspectives.</em>
+            The <em>Journal.</em>
           </h1>
           <span>
-            Explore articles on filmmaking, behind-the-scenes stories, festival
-            journeys and conversations from the world of cinema.
+            Notes on writing, filming, sound and the work behind our films.
           </span>
-        </div>
-        <div className="about-scroll-cue">
-          <i /> SCROLL TO DISCOVER
         </div>
       </section>
       <section className="j-stories j-wrap" aria-labelledby="stories-title">
         <div className="j-section-heading">
           <div>
-            <p className="j-eyebrow">NOTES FROM OUR WORLD</p>
             <h2 id="stories-title">
-              The latest <em>stories.</em>
+              Recent <em>articles.</em>
             </h2>
           </div>
-          <span className="j-edition">CINEMA. CULTURE. CONVERSATION.</span>
         </div>
         <div className="j-toolbar">
           <div className="j-filters" aria-label="Filter stories">
@@ -82,7 +73,7 @@ export default function JournalPage({ onNavigate }) {
           </label>
         </div>
         <p className="j-results" aria-live="polite">
-          {String(visible.length).padStart(2, "0")} STORIES{" "}
+          {visible.length} STORIES{" "}
           {category !== "All Stories" && ` / ${category.toUpperCase()}`}
         </p>
         <div className="j-grid">
@@ -97,7 +88,7 @@ export default function JournalPage({ onNavigate }) {
         </div>
         {!visible.length && (
           <div className="j-empty">
-            <h3>No stories in this frame.</h3>
+            <h3>No articles found.</h3>
             <p>Try another search or explore all categories.</p>
             <button
               onClick={() => {
@@ -109,11 +100,6 @@ export default function JournalPage({ onNavigate }) {
             </button>
           </div>
         )}
-        <div className="j-endnote">
-          <span />
-          YOU’RE ALL CAUGHT UP
-          <span />
-        </div>
       </section>
       <JournalClosing onNavigate={onNavigate} />
     </div>

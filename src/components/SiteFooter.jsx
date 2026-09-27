@@ -1,3 +1,4 @@
+import NewsletterSection from "../sections/NewsletterSection";
 import { contactEmail } from "../data/siteData";
 import TicketButton from "./TicketButton";
 import { useState } from "react";
@@ -23,14 +24,15 @@ const SocialIcon = ({ platform }) =>
     </svg>
   );
 
-export default function SiteFooter({ onNavigate }) {
+export default function SiteFooter({ onNavigate, showNewsletter }) {
   const [hovered, setHovered] = useState(false);
   const link = (event, target) => {
     event.preventDefault();
     onNavigate(target);
   };
   return (
-    <footer className="cinema-footer">
+    <footer className="cinema-footer compact-footer">
+      <div className="footer-layout">
       <div className="footer-top">
         <div
           className="footer-brand footer-logo"
@@ -39,13 +41,9 @@ export default function SiteFooter({ onNavigate }) {
         >
           <img src={hovered ? pinkLogo : whiteLogo} alt="Drishyam Films" />
         </div>
-        <p />
         <a className="footer-mail" href={`mailto:${contactEmail}`}>
           {contactEmail} <span>↗</span>
         </a>
-      </div>
-      <div className="footer-wordmark" aria-hidden="true">
-        DRISHYAM FILMS
       </div>
       <div className="footer-columns">
         <div>
@@ -84,16 +82,11 @@ export default function SiteFooter({ onNavigate }) {
             YouTube
           </a>
         </div>
-        <div className="footer-cta">
-          <p className="footer-label">A STORY TO TELL?</p>
-          <a href="/contact-us" onClick={(e) => link(e, "/contact-us")}>
-            Start a conversation <span>→</span>
-          </a>
-        </div>
+        {showNewsletter && <NewsletterSection />}
+      </div>
       </div>
       <div className="footer-bottom">
         <p>&copy; 2026 DRISHYAM FILMS. ALL RIGHTS RESERVED.</p>
-        <p />
         <TicketButton
           type="button"
           className="footer-scroll-ticket"

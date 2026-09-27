@@ -4,14 +4,9 @@ import { posts, postUrl } from "../data/blogData";
 
 export default function JournalSection({ navigate }) {
   return (
-    <section id="journal" className="journal">
+    <section id="journal" className="journal" aria-labelledby="journal-section-title">
       <div className="journal-heading">
-        <p className="eyebrow">JOURNAL</p>
-        <h2>
-          The people
-          <br />
-          <em> behind the picture.</em>
-        </h2>
+        <h2 id="journal-section-title">Journal / Blog</h2>
         <TicketButton
           type="button"
           className="contact-submit ticket-button"
@@ -23,7 +18,9 @@ export default function JournalSection({ navigate }) {
       <div className="journal-grid">
         {posts.slice(0, 3).map((post) => (
           <article key={post.slug}>
-            <img src={post.image} alt="" />
+            <div className="journal-poster">
+              <img src={post.image} alt={post.alt} />
+            </div>
             <span>{post.category.toUpperCase()} / 2026</span>
             <h3>{post.title}</h3>
             <a

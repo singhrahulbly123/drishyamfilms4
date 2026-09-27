@@ -32,7 +32,6 @@ export default function SiteHeader({ onNavigate, currentPath }) {
         onClick={() => go("/")}
         onMouseEnter={() => setLogoHovered(true)}
         onMouseLeave={() => setLogoHovered(false)}
-        onFocus={() => setLogoHovered(true)}
         onBlur={() => setLogoHovered(false)}
       >
         <img src={logoHovered ? pinkLogo : whiteLogo} alt="Drishyam Films" />
