@@ -654,3 +654,27 @@ main .compact-footer .footer-bottom p { max-width: none; font-size: 9px; line-he
   main .compact-footer .footer-subscription-fields { flex-direction: row; }
   .compact-footer .footer-signup-button { padding-inline: 16px; }
 }
+
+/* Restored full-width, scroll-driven film video showcase. */
+.catalog-video-showcase .film-trailer-link { pointer-events: auto; }
+.catalog-video-showcase .catalog-dots { z-index: 4; gap: 4px; }
+.catalog-video-showcase .catalog-dots button {
+  display: grid; place-items: center; width: 44px; height: 44px;
+  padding: 0; border: 0; background: transparent; color: #fff;
+}
+.catalog-video-showcase .catalog-dots button span {
+  width: 10px; height: 10px; border-radius: 50%; background: currentColor;
+}
+.catalog-video-showcase .catalog-dots button.is-active { color: #fff; opacity: 1; }
+.catalog-video-showcase .catalog-dots button:focus-visible { outline: 2px solid #fff; outline-offset: -4px; }
+@media (hover: hover) {
+  .catalog-video-showcase .catalog-dots button:hover { color: var(--brand-accent); }
+}
+@media (max-width: 800px) {
+  .home-page .catalog-video-showcase .siena-copy { bottom: 76px; }
+  .catalog-video-showcase .catalog-dots { bottom: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .catalog-video-showcase .catalog-media,
+  .catalog-video-showcase .catalog-siena-overlay.is-visible * { animation: none !important; transition: none !important; }
+}
