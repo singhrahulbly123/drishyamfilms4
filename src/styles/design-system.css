@@ -657,7 +657,10 @@ main .compact-footer .footer-bottom p { max-width: none; font-size: 9px; line-he
 
 /* Restored full-width, scroll-driven film video showcase. */
 .catalog-video-showcase .film-trailer-link { pointer-events: auto; }
-.catalog-video-showcase .catalog-dots { z-index: 4; gap: 4px; }
+.catalog-video-showcase .catalog-dots {
+  z-index: 4; gap: 4px; left: 50%; right: auto;
+  width: max-content; transform: translateX(-50%);
+}
 .catalog-video-showcase .catalog-dots button {
   display: grid; place-items: center; width: 44px; height: 44px;
   padding: 0; border: 0; background: transparent; color: #fff;
