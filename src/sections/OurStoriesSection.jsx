@@ -37,13 +37,6 @@ export default function OurStoriesSection({ scroll, setPremiereOpen }) {
         >
           <span aria-hidden="true">&#9654;</span>
         </button>
-        <div className="art-label">
-          EST.
-          <br />
-          2014
-          <br />
-          <b>NEW DELHI</b>
-        </div>
       </div>
     </section>
   );
